@@ -1,0 +1,99 @@
+<script lang="ts">
+	import { tooltipviews,sitelists,} from '../../dbase.js';
+	import { flip } from 'svelte/animate';
+	import { slide, scale } from 'svelte/transition';
+	import editicon from '$lib/res/delsite.webp';
+	let hovering = -1;
+	function drop(event: DragEvent, target: number) {
+		event.dataTransfer!.dropEffect = 'move';
+		const start = parseInt(event.dataTransfer!.getData('text/plain'));
+		const newTracklist = [...$sitelists];
+		newTracklist.splice(target < start ? target : target + 1, 0, newTracklist.splice(start, 1)[0]);
+		sitelists.set(newTracklist);
+		hovering = -1;
+	}
+	function dragstart(event: DragEvent, i: number) {
+		event.dataTransfer!.effectAllowed = 'move';
+		event.dataTransfer!.dropEffect = 'move';
+		const start = i;
+		event.dataTransfer!.setData('text/plain', start.toString());
+	}
+	function gotowebsite(url: string) {
+		window.location.href = url;
+	}
+	function deletesite(option: number) {
+		const newTracklist = [...$sitelists];
+		newTracklist.splice(option, 1);
+		sitelists.set(newTracklist);
+	}
+	function geticon(url: string) {
+		const urlsplit = url.split('/');
+		const domain = urlsplit[2];
+		const iconurl = 'https://s2.googleusercontent.com/s2/favicons?domain=' + domain + '&sz=128';
+		return iconurl;
+	}
+</script>
+
+
+    <div class="sitelist" role="list">
+	{#each $sitelists as site, index (site.name)}
+		<div 
+			role="listitem"
+			tabindex="-1"
+			aria-dropeffect="move"
+			class="site-item col"
+			animate:flip={{ duration: 250 }}
+			transition:slide={{ duration: 250 }}
+			draggable={true}
+			on:dragstart={(event) => dragstart(event, index)}
+			on:drop|preventDefault={(event) => drop(event, index)}
+			on:dragover={(event) => {event.preventDefault();return false;}}
+			on:dragenter={() => (hovering = index)}
+			class:is-active={hovering === index}>
+			<div
+				class="sitebtn col"
+				role="button"
+				tabindex="-1"
+				on:click={(event) => {
+					gotowebsite(site.url);
+				}}
+				on:keydown={(event) => {
+					if (event.key === 'Enter') {
+						gotowebsite(site.url);
+					}
+				}}>
+				<img class="siteicon" src={geticon(site.url)} alt="icon" />
+				{site.name}
+			</div>
+			{#if $tooltipviews.editview}
+				<button class="delbtn" on:click={() => deletesite(index)}>
+					<img transition:scale src={editicon} alt="edit" />
+				</button>
+			{/if}
+		</div>
+	{/each}
+</div>
+<style>
+	.sitelist {
+		width:var( --sitelistwidth);
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(calc(var(--sitewidth)*1.2), 1fr));
+		height: 60vh;
+		overflow-y: scroll;
+	}
+	.site-item {
+		height:calc(var(--sitewidth)*1.5);
+		border-radius:var(--border-radius);
+		margin:var(--margin);
+	}
+	.site-item.is-active {
+		background-color: #3273dc;
+	}
+	.siteicon {	
+		border-radius: var(--sitebr);
+		width:var(--sitewidth);
+	}
+	.delbtn, .delbtn img {
+		width: 2vw;
+	}
+</style>

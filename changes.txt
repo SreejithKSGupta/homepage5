@@ -1,0 +1,17 @@
+features required     
+     ----enter is search in mobile phones
+     ----animate when opening a website
+     ----title for all items, buttons etc
+
+corrections:
+     ----smoother animation when opening delete image
+     ----better icons
+     ----better overall theme     
+
+
+extended wish:
+     ---provide suggestions     
+     ---about me page
+
+
+crossorigin policy when signing in with popup     
