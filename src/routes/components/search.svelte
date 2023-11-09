@@ -59,29 +59,43 @@
 
 <style>
 	.search-bar {
-		width: clamp(300px, 60vw, 1000px);
+		width: clamp(400px, 60vw, 1000px);
 		background-color: var(--iptcolor);
 		border-radius: var(--border-radius);
 		padding: var(--padding);
-		height: 10vh;
 		margin: var(--margin);
-		font-size: 2vh;
+		font-size:120%;
 	}
 
 	input[type='text'] {
-		padding: var(--padding);
 		color: var(--ipttextcolor);
-		width: 60%;
+		width: 65%;
 	}
-
+ label{
+	 display: none;
+ }
 	button {
 		width: 10%;
 	}
 	img {
-		height: 5vh;
+		width: 60%;
 	}
 
 	select {
 		width: 30%;
+	}
+	@media (max-width: 600px) {
+		.search-bar {
+			width: 95vw;
+			font-size: 100%;
+			padding: calc(var(--padding)*0.1);
+			
+		}
+
+		select{
+			width: 25%;
+		 font-size: 80%;
+		}
+
 	}
 </style>

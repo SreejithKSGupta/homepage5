@@ -20,8 +20,8 @@
             });
         });
     });
+    
 </script>
-
 
         <Topbar />
         <Search />
@@ -32,7 +32,5 @@
         <Addsitetooltip/>
         <Settings/>
         <About/>
-
-
  
 

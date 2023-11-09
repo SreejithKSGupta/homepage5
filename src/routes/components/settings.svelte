@@ -7,8 +7,9 @@
 
 {#if $tooltipviews.settingsview}
 	<div class="tooltip col" transition:scale={{duration:$animation_duration}} bind:this={tooltipElement}>
+		<h1>Settings</h1>
 		<div class="settingsmenu col">
-			<h1>Settings</h1>
+			
 			{#each $settingsoptions as settingsoption}
 				<div class="row settingsitem">
 					<label class="settingslabel" for={settingsoption.name}>{settingsoption.text}</label>
@@ -63,9 +64,8 @@
 		position: absolute;
 		z-index: 5;
 		top: 15vh;
-		width: clamp(250px, 60vw, 800px);
+		width: clamp(300px, 70vw, 1200px);
 		height: 60vh;
-		overflow-y: scroll;
 		justify-content: flex-start;
 		background-color: var(--tooltipbgcol);
 		border-radius: var(--border-radius);
@@ -74,12 +74,13 @@
 
 	.settingsmenu {
 		width: 100%;
-		height: 100%;
+		height: 90%;
 		justify-content: flex-start;
 		margin: var(--margin);
+		overflow-y: scroll;
 	}
 	.tooltip h1 {
-		font-size: 5rem;
+		font-size: 350%;
 		color: var(--primary);
 	}
 	.settingslabel {
@@ -98,11 +99,35 @@
 		width: 20%;
 		text-align: right;
 	}
-	input[type='color'] {
+	input[type='color'],input[type='checkbox'] {
 		width: 50px;
 		height: 50px;
 		padding: 0;
 		margin: 0;
-		border-radius: 0;
+		border-radius: 0px;
+	}
+	input[type='range']{
+		width: 50%;
+	}
+	@media screen and (max-width: 600px) {
+		.tooltip {
+			width: 95vw;
+			height: 70vh;
+			top: 15vh;
+		}
+		.settingsitem {
+			justify-content: space-between;
+			width: 98%;
+			margin: var(--margin);
+			padding: var(--padding) calc(var(--padding)*2);
+			background-color: rgb(29, 24, 29);
+			border-radius: var(--border-radius);
+			font-size: larger;
+		}
+		input[type='color'],input[type='checkbox'] {
+		width: 25px;
+		height: 25px;
+	}
+		
 	}
 </style>

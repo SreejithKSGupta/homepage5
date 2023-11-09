@@ -8,7 +8,7 @@
     --font: sans-serif;
     --tooltipbgcol:#052529;
     
-    --font-size: 1vw;
+    --font-size: 2em;
     --font-weight:400;
     --margin:10px;
     --padding:10px;
@@ -16,8 +16,8 @@
     --animdur:500ms;
 
     --sitelistwidth:75vw;
-    --sitewidth:6vw;
-    --sitebr:50%
+    --sitewidth:60px;
+    --sitebr:50%;
 
 }
 
@@ -36,6 +36,9 @@
     transition-duration: var(--animdur);
     animation-duration: var(--animdur);
 }
+body{
+    overscroll-behavior: none;
+}
 button{
     cursor: pointer;
     outline: none;
@@ -43,11 +46,12 @@ button{
     background-color: transparent;
     font-weight: bolder;
 }
-button:hover{
+button:hover, .site-item:focus{
     transform: scale(1.05);
 }
 button:active{
     transform: scale(0.95);
+  
 }
 
 input , select {
@@ -58,7 +62,8 @@ input , select {
     padding: var(--padding);
     margin: var(--margin);
     border-radius: var(--border-radius);
-    font-size: 250%;
+    font-size: 150%;
+    font-weight: bold;
 }
 
 option{

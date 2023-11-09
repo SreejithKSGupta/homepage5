@@ -66,7 +66,7 @@
 		position: absolute;
         z-index: 6;
         top: 40vh;
-		width: clamp(250px, 60vw, 800px);
+		width: clamp(350px, 60vw, 800px);
 		background-color:var(--tooltipbgcol);
 		border-radius: var(--border-radius);
 		padding: var(--padding);
@@ -79,10 +79,15 @@
 	.tooltip button {
 		background-color: var(--primary);
 		border-radius: var(--border-radius);
-		padding: 18px;
+		padding: var(--padding);
 		color: #ffffff;
-		font-size: 1.5rem;
+		font-size: 130%;
 		width: clamp(100px, 20vw, 200px);
 		margin:var(--margin);
+	}
+	@media (max-width: 600px) {
+		.tooltip {
+			width: 95vw;
+		}
 	}
 </style>

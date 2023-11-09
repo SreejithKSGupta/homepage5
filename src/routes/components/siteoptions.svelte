@@ -43,8 +43,11 @@
 		color: #ffffff;
 		padding: var(--padding) ;
 	}
-	.tooltip button:hover {
-		background-color: rgb(29, 148, 163, 0.5);
+	.tooltip button:hover , .tooltip button:focus{
+		background-color: var(--primary);
+	}
+	.tooltip button:active{
+		background-color: var(--secondary);
 	}
 	.tooltip button img {
 		width:var(--sitewidth);
@@ -53,12 +56,12 @@
 		position: absolute;
 		bottom: 1vh;
 		right: 1vh;
-        opacity: 30%;
+        opacity: 20%;
 	}
     #optionsbtn:hover {
         opacity: 100%;
     }
 	#optionsbtn img {
-		width:var(--sitewidth);
+		width:calc(var(--sitewidth)*0.7);
 	}
 </style>

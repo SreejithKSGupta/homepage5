@@ -45,8 +45,15 @@ export let settingsoptions = writable([
     value: true,
     tyfe: 'checkbox'
   },
+  {
+    name: 'show_sitename',
+    text: 'Show site names',
+    value: true,
+    tyfe: 'checkbox'
+  }
 
 ]);
+
 
 export let animation_duration = writable(500);
 export let fontfam = writable('sans-serif');
@@ -76,15 +83,14 @@ export let cssvars = writable([
   { name: '--iptcolor',      value: '#ffffff',        unit: 'color', tag: 'Input Color',               min:0, max:0  ,  steps:0  },
   { name: '--ipttextcolor',  value: '#000000',        unit: 'color', tag: 'Input Text Color',          min:0, max:0  ,  steps:0  },
   { name: '--tooltipbgcol',  value: '#052529',        unit: 'color', tag: 'Tooltip Background Color',  min:0, max:0  ,  steps:0  },
-  { name: '--font-size',     value: '1',              unit: 'vw',    tag: 'Font Size' ,                min:0.8, max:2 , steps:0.2},
+  { name: '--font-size',     value: '16',              unit: 'px',    tag: 'Font Size' ,               min:10, max:30 , steps:1  },
   { name: '--margin',        value: '10',             unit: 'px',    tag: 'Margin' ,                   min:0, max:20 ,  steps:1  },
   { name: '--padding',       value: '10',             unit: 'px',    tag: 'Padding',                   min:5, max:20 ,  steps:1  },
   { name: '--border-radius', value: '20',             unit: 'px',    tag: 'Border Radius' ,            min:0, max:60 ,  steps:1  },
   { name: '--sitelistwidth', value: '75',             unit: 'vw',    tag: 'Site List Width' ,          min:10, max:90 , steps:1  },
-  { name: '--sitewidth',     value: '6',              unit: 'vw',    tag: 'Site Width' ,               min:3, max:12  , steps:1  },
+  { name: '--sitewidth',     value: '60',              unit: 'px',   tag: 'Site Width' ,               min:30, max:100 , steps:1  },
   { name: '--sitebr',        value: '50',             unit:  '%',     tag: 'Site Border Radius',       min:0, max:50  , steps:1  },
-  {name: '--blurr',          value:'10',              unit: 'px',     tag:'wallpaper Blur',            min:0, max:20 ,  steps:1  },
-]);
+  ]);
 
 const firebaseConfig = {
   apiKey: "AIzaSyBbeg0_7gXdkE-2SJfetxwNQvax5ysJYg0",
@@ -157,7 +163,7 @@ onAuthStateChanged(auth, (user) => {
     const { displayName, photoURL, uid } = user;
     userdata.set({
       name: displayName!,
-      photo: logo,
+      photo: photoURL!,
       buttonname: 'sign out',
     });
     const refSites = ref(db, `users/${uid}/sites/`);

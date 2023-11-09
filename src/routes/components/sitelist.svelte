@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tooltipviews,sitelists,} from '../../dbase.js';
+	import { tooltipviews,sitelists,settingsoptions} from '../../dbase.js';
 	import { flip } from 'svelte/animate';
 	import { slide, scale } from 'svelte/transition';
 	import editicon from '$lib/res/delsite.webp';
@@ -63,7 +63,9 @@
 					}
 				}}>
 				<img class="siteicon" src={geticon(site.url)} alt="icon" />
+				{#if $settingsoptions.find((settingsoption) => settingsoption.name === 'show_sitename')?.value}
 				{site.name}
+				{/if}
 			</div>
 			{#if $tooltipviews.editview}
 				<button class="delbtn" on:click={() => deletesite(index)}>
@@ -75,7 +77,7 @@
 </div>
 <style>
 	.sitelist {
-		width:var( --sitelistwidth);
+		width:clamp(300px,var( --sitelistwidth), var( --sitelistwidth));
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(calc(var(--sitewidth)*1.2), 1fr));
 		height: 60vh;
@@ -86,6 +88,12 @@
 		border-radius:var(--border-radius);
 		margin:var(--margin);
 	}
+	.site-item:hover, .site-item:focus {
+		transform: scale(1.1);
+	}
+	.site-item:active {
+		transform: scale(0.9);
+	}
 	.site-item.is-active {
 		background-color: #3273dc;
 	}
@@ -94,6 +102,12 @@
 		width:var(--sitewidth);
 	}
 	.delbtn, .delbtn img {
-		width: 2vw;
+		width:calc(var(--sitewidth)*0.3);
+	}
+
+	@media screen and (max-width: 600px) {
+		.sitelist {
+			width:95vw;
+		}
 	}
 </style>

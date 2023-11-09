@@ -1,6 +1,6 @@
 <script lang="ts">
     import './style.css';
-    import {slide } from 'svelte/transition';
+    import {slide,crossfade } from 'svelte/transition';
     import { settingsoptions, wallpaperurl,} from "../dbase.js";
 </script>
 
