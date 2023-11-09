@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { showHide, tooltipviews,sitelists,animation_duration} from '../../dbase.js';
+	import {tooltipviews,sitelists,animation_duration} from '../../dbase.js';
     import { scale} from 'svelte/transition';
+	import { showHide } from '../../corefunctions.js';
 
 	let siteName = '';
 	let siteUrl = '';

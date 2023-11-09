@@ -1,5 +1,6 @@
 <script lang="ts">
-	import {tooltipviews,showHide,animation_duration } from '../../dbase.js';
+	import {tooltipviews,animation_duration } from '../../dbase.js';
+	import { showHide } from '../../corefunctions.js';
 	import { scale} from 'svelte/transition';
 	import settingsicon from '$lib/res/sett.webp';
 	import editicon from '$lib/res/editsite.webp';

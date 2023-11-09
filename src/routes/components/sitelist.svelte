@@ -95,7 +95,13 @@
 		transform: scale(0.9);
 	}
 	.site-item.is-active {
-		background-color: #3273dc;
+		background-color:var(--secondary);
+	}
+	.sitebtn{
+		font-size: 170%;
+	}
+	.sitebtn:hover, .sitebtn:focus {
+		color: var(--primary);
 	}
 	.siteicon {	
 		border-radius: var(--sitebr);
@@ -108,6 +114,7 @@
 	@media screen and (max-width: 600px) {
 		.sitelist {
 			width:95vw;
+			height:50vh;
 		}
 	}
 </style>

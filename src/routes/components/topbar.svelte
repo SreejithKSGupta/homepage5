@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
-	import { signinout,userdata,showHide,tooltipviews,animation_duration} from '../../dbase.js';
+	import { userdata,tooltipviews,animation_duration} from '../../dbase.js';
+	import {showHide,} from '../../corefunctions.js';
+	import { signinout } from '../../firebase.js';
 	let time = new Date().toLocaleTimeString();
 	let date = new Date().toLocaleDateString();
 
@@ -54,8 +56,11 @@
 	header div {
 		width: 30%;
 	}
+
 	#clock span{
+		width: 100%;
 		font-size: 200%;
+		text-align: left;
 	}
 	#profile {
 		justify-content: end;
