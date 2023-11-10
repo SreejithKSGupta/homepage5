@@ -124,7 +124,6 @@ $: {
 	@media screen and (max-width: 600px) {
 		.sitelist {
 			width:95vw;
-			height:50vh;
 		}
 	}
 </style>

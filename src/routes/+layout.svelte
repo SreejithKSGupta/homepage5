@@ -26,8 +26,10 @@
 
 <style>
 	#content {
-		height: 100vh;
-		width: 100vw;
+		position: fixed;
+		height: 100%;
+		width: 100%;
 		background-color: var(--bgcol);
 	}
+
 </style>
