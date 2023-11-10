@@ -93,20 +93,23 @@ function addkeyboardshortcuts() {
             if (event.key === 'Escape') {
                 closeAllViews();
             }
-            if (event.key === 'a' && event.altKey) {
+            if (event.key === 'a' || 'A' && event.altKey) {
                 showHide('addsiteview');
             }
-            if (event.key === 'c' && event.altKey) {
+            if (event.key === 'c' || 'C' && event.altKey) {
                 showHide('editview');
             }
-            if (event.key === 's' && event.altKey) {
+            if (event.key === 's' || 'S' && event.altKey) {
                 showHide('settingsview');
             }
-            if (event.key === 'p' && event.altKey) {
+            if (event.key === 'p'|| 'P' && event.altKey) {
                 showHide('profileview');
             }
-            if (event.key === 'h' && event.altKey) {
+            if (event.key === 'h' || 'H' && event.altKey) {
                 showHide('aboutview');
+            }
+            if (event.key === 'm' || 'M'  && event.altKey) {
+                showHide('actionview');
             }
             // if press a number and alt key, open the site
             if (event.altKey && !isNaN(Number(event.key))) {

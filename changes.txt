@@ -2,7 +2,6 @@ features required
      ----animate when opening a website
 
 corrections:
-     ----better icons
      ----better overall theme     
 
 
@@ -10,7 +9,6 @@ extended wish:
      ---provide suggestions     
      ---about me page
      --set a defwebsite image if icon not available
-     --set of preavailable wallpapers
 
 
 crossorigin policy when signing in with popup     

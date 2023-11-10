@@ -35,7 +35,7 @@
 				<button type="button" id="optbtns" on:click={() => showHide('settingsview')}>
 					Settings</button
 				>
-				<button type="button" id="optbtns" on:click={donothing}>About</button>
+				<button type="button" id="optbtns" on:click={() => showHide('aboutview')}>About</button>
 			</div>
 		{/if}
 	</div>
