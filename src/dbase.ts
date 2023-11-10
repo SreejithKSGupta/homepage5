@@ -7,7 +7,7 @@ const siteslists = typeof window !== 'undefined' ? JSON.parse(window.localStorag
 const fontfamm = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('fontfam') || '"sans-serif"') : 'sans-serif';
 const andur = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('animation_duration') || "500") : 500;
 let setopts =     typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('settingsoptions')!)  : [];
-if(setopts.length==0){
+if(setopts==null){
   setopts=[
     {
       name: 'new_tab',
