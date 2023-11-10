@@ -6,7 +6,6 @@
 	import { signinout } from '../../firebase.js';
 	let time = new Date().toLocaleTimeString();
 	let date = new Date().toLocaleDateString();
-
 	onMount(() => {
 		setInterval(() => {
 			time = new Date().toLocaleTimeString();
@@ -26,14 +25,15 @@
 		<h1>Hi {$userdata.name}</h1>
 	</div>
 	<div id="profile" class="row">
-		<button type="button" on:click={() => showHide('profileview')}
+		<button type="button" on:click={() => showHide('profileview')} title="Profile"
 			><img src={$userdata.photo} id="proimg" alt="profile" /></button
 		>
 		{#if $tooltipviews.profileview}
 			<div id="profilemenu" class="col" transition:slide={{ duration: $animation_duration }}>
 				<h1>Hi,<br /> {$userdata.name}</h1>
 				<button type="button" id="optbtns" on:click={signinout}>{$userdata.buttonname}</button>
-				<button type="button" id="optbtns" on:click={() => showHide('settingsview')}>Settings</button
+				<button type="button" id="optbtns" on:click={() => showHide('settingsview')}>
+					Settings</button
 				>
 				<button type="button" id="optbtns" on:click={donothing}>About</button>
 			</div>

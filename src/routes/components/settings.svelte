@@ -29,7 +29,6 @@
 				    accept="image/*"
 					bind:this={wallpaperbox}
 				/>
-				<span class="setval">{$animation_duration}ms</span>
 			</div>
 			
 			{#each $settingsoptions as settingsoption}

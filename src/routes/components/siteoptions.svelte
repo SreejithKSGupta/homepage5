@@ -2,26 +2,26 @@
 	import {tooltipviews,animation_duration } from '../../dbase.js';
 	import { showHide } from '../../corefunctions.js';
 	import { scale} from 'svelte/transition';
-	import settingsicon from '$lib/res/sett.webp';
-	import editicon from '$lib/res/editsite.webp';
-	import addicon from '$lib/res/add.webp';
-	import options from '$lib/res/moreopt.webp';
+	import settingsicon from '$lib/res/sett.svg';
+	import editicon from '$lib/res/editsite.svg';
+	import addicon from '$lib/res/addsite.svg';
+	import options from '$lib/res/moreopt.svg';
 
 </script>
 
-<button type="button" id="optionsbtn"  on:click={() => showHide('actionview')}>
+<button type="button" id="optionsbtn"  on:click={() => showHide('actionview')} title="Options">
 	<img src={options} alt="options" />
 </button>
 <div id="footer" class="row">
 	{#if $tooltipviews.actionview}
 		<div class="tooltip row" transition:scale={{duration:$animation_duration}}>
-			<button on:click={() => showHide('editview')}>
+			<button on:click={() => showHide('editview')} title="Remove Sites">
 				<img src={editicon} alt="edit" />
 			</button>
-			<button on:click={() => showHide('addsiteview')}>
+			<button on:click={() => showHide('addsiteview')} title="Add new Sites">
 				<img src={addicon} alt="add new" />
 			</button>
-			<button on:click={() => showHide('settingsview')}>
+			<button on:click={() => showHide('settingsview')} title="Remove sites">
 				<img src={settingsicon} alt="settings" />
 			</button>
 		</div>

@@ -1,7 +1,8 @@
 // @ts-ignore
 export async function handle({ request, resolve }) {
+    console.log('Incoming request');
     const response = await resolve(request);
-  
+   
     return {
       ...response,
       headers: {
@@ -11,8 +12,6 @@ export async function handle({ request, resolve }) {
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers':
         'Origin, X-Requested-With, Content-Type, Accept',
-
-
       }
     };
   }

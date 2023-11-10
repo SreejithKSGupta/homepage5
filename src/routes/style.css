@@ -95,3 +95,8 @@ img{
 ::-webkit-scrollbar{
     width: 0px;
 }
+
+svg {
+    fill: white !important;
+    color: white !important;
+  }

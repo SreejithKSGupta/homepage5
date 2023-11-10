@@ -2,7 +2,7 @@
 	import { tooltipviews,sitelists,settingsoptions} from '../../dbase.js';
 	import { flip } from 'svelte/animate';
 	import { slide, scale } from 'svelte/transition';
-	import editicon from '$lib/res/delsite.webp';
+	import editicon from '$lib/res/delsite.svg';
 	let hovering = -1;
 	function drop(event: DragEvent, target: number) {
 		event.dataTransfer!.dropEffect = 'move';
@@ -61,6 +61,7 @@ $: {
 			on:dragenter={() => (hovering = index)}
 			class:is-active={hovering === index}>
 			<div
+			    title="{site.url}"
 				class="sitebtn col"
 				role="button"
 				tabindex="-1"
@@ -78,7 +79,7 @@ $: {
                 {/if}
 			</div>
 			{#if $tooltipviews.editview}
-				<button class="delbtn" on:click={() => deletesite(index)}>
+				<button class="delbtn" on:click={() => deletesite(index)} title="remove {site.name}">
 					<img transition:scale src={editicon} alt="edit" />
 				</button>
 			{/if}

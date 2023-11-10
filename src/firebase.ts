@@ -2,7 +2,7 @@ import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signO
 import { getDatabase, ref, get, set, } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import { userdata,sitelists, wallpaperurl } from "./dbase";
-import logo from '$lib/res/defuser.webp';
+import logo from '$lib/res/defuser.svg';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBbeg0_7gXdkE-2SJfetxwNQvax5ysJYg0",

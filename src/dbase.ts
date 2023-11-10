@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
-import logo from '$lib/res/defuser.webp';
-import defwall from '$lib/res/wallw.webp';
+import logo from '$lib/res/defuser.svg';
+import defwall from '$lib/res/wallw.svg';
 
 
 const siteslists = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('sitelists') || '[]') : [];
@@ -81,14 +81,39 @@ export let fontopt = writable([
   'Tahoma',
   'Times New Roman',
   'Georgia',
-  'Garamond',
   'Courier New',
-  'Brush Script MT',
   'Lucida Sans',
   'sans-serif',
   'serif',
   'monospace',
   'cursive',
+  'Comic Sans MS',
+  'Impact',
+  'Trebuchet MS',
+  'Arial Black',
+  'MS Sans Serif',
+  'Palatino Linotype',
+  'Arial Narrow',
+  'Gill Sans',
+  'Franklin Gothic Medium',
+  'Andale Mono',
+  'Arial Rounded MT Bold',
+  'Baskerville',
+  'Futura',
+  'Geneva',
+  'Lucida Grande',
+  'Book Antiqua',
+  'Palatino',
+  'Bookman',
+  'Garamond',
+  'Avant Garde',
+  'Helvetica Narrow',
+  'Zapf Chancery',
+  'Century Gothic',
+  'Symbol',
+  'Webdings',
+  'Wingdings',
+  'MS Serif',
 ]);
 export let tooltipviews = writable({
   actionview: false,
