@@ -1,12 +1,15 @@
 import { writable } from "svelte/store";
 import logo from '$lib/res/defuser.webp';
-import wallpaper from '$lib/res/wallw.webp';
+import defwall from '$lib/res/wallw.webp';
 
 
 const siteslists = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('sitelists') || '[]') : [];
 const fontfamm = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('fontfam') || '"sans-serif"') : 'sans-serif';
 const andur = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('animation_duration') || "500") : 500;
 let setopts =     typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('settingsoptions')!)  : [];
+let csvarslocal =    typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('cssvars')! ) : [];
+let localwallpaper = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('wallpaper')! ) : null;
+
 if(setopts==null){
   setopts=[
     {
@@ -35,7 +38,6 @@ if(setopts==null){
     }
   ]
 }
-let csvarslocal = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('cssvars')!) : [];
 if(csvarslocal==null){
   csvarslocal=[
       { name: '--font-size', value: '16', unit: 'px', tag: 'Font Size', min: 10, max: 30, steps: 1 },
@@ -54,29 +56,24 @@ if(csvarslocal==null){
       { name: '--tooltipbgcol', value: '#052529', unit: 'color', tag: 'Tooltip Background Color', min: 0, max: 0, steps: 0 },
     ]
 }
-
+if(localwallpaper==null){
+  localwallpaper=defwall;
+}
 
 
 
 export let sitelists = writable(siteslists);
-export let wallpaperurl = writable(wallpaper);
+export let wallpaperurl = writable(localwallpaper);
 export let animation_duration = writable(andur);
 export let fontfam = writable(fontfamm); 
 export let settingsoptions = writable(setopts);
 export let cssvars = writable(csvarslocal);
-
-
-
-
 
 export let userdata = writable({
   name: 'User',
   buttonname: 'sign in',
   photo: logo,
 });
-
-
-
 export let fontopt = writable([
   'Arial',
   'Verdana',
@@ -93,7 +90,6 @@ export let fontopt = writable([
   'monospace',
   'cursive',
 ]);
-
 export let tooltipviews = writable({
   actionview: false,
   addsiteview: false,

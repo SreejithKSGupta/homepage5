@@ -1,7 +1,18 @@
 <script lang="ts">
+	import { wallpaperurl } from './../../dbase.js';
 	import { cssvars,fontfam,fontopt,animation_duration ,tooltipviews,settingsoptions} from '../../dbase.js';
 	import { scale } from 'svelte/transition';
 	let tooltipElement: any;
+	let wallpaperbox: any;
+	function handlewallpaperupload(){
+		const file =wallpaperbox.files[0];
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			wallpaperurl.set(reader.result as string);
+		};
+		reader.readAsDataURL(file);
+		console.log($wallpaperurl);
+	}
 </script>
 
 
@@ -9,6 +20,17 @@
 	<div class="tooltip col" transition:scale={{duration:$animation_duration}} bind:this={tooltipElement}>
 		<h1>Settings</h1>
 		<div class="settingsmenu col">
+			<div class="row settingsitem">
+				<label class="settingslabel" for="wallpaper_upload">add a wallpaper</label>
+				<input
+					type="file"
+					on:change={handlewallpaperupload}
+					id="wallpaper_upload"
+				    accept="image/*"
+					bind:this={wallpaperbox}
+				/>
+				<span class="setval">{$animation_duration}ms</span>
+			</div>
 			
 			{#each $settingsoptions as settingsoption}
 				<div class="row settingsitem">
@@ -36,6 +58,7 @@
 				/>
 				<span class="setval">{$animation_duration}ms</span>
 			</div>
+		
             
 			{#each $cssvars as settinsitem}
 				<div class="row settingsitem">

@@ -1,7 +1,7 @@
 import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import { getDatabase, ref, get, set, } from "firebase/database";
 import { initializeApp } from "firebase/app";
-import { userdata,sitelists } from "./dbase";
+import { userdata,sitelists, wallpaperurl } from "./dbase";
 import logo from '$lib/res/defuser.webp';
 
 const firebaseConfig = {
@@ -50,6 +50,14 @@ const firebaseConfig = {
           sitelists.set(siteList);
         }
       });
+      const wallpaperRef = ref(db, `users/${uid}/wallpaper/`);
+      get(wallpaperRef).then((snapshot) => {
+        const wallpaper = snapshot.val();
+        if (wallpaper) {
+          wallpaperurl.set(wallpaper);
+        }
+      })
+
     } else {
       console.log("Signed out");
       userdata.set({

@@ -1,8 +1,6 @@
-import { writable } from 'svelte/store';
-import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-import { cssvars,settingsoptions, sitelists, tooltipviews, fontfam, animation_duration, userdata } from './dbase';
-import { auth, db, provider } from './firebase.js';
-import { set, ref, get } from '@firebase/database';
+import { cssvars,settingsoptions, sitelists, tooltipviews, fontfam, animation_duration, wallpaperurl } from './dbase';
+import { auth, db } from './firebase.js';
+import { set, ref,get } from '@firebase/database';
 
 
 
@@ -22,6 +20,7 @@ cssvars.subscribe(newcssvars => {
             if (document.documentElement != undefined) {
                 if (element.unit == 'color')
                     document.documentElement.style.setProperty(element.name, element.value);
+                    
                 else
                     document.documentElement.style.setProperty(element.name, element.value + element.unit);
             }
@@ -59,7 +58,14 @@ settingsoptions.subscribe(newsettingsoptions => {
     }
 });
 
-
+wallpaperurl.subscribe(newwallpaperurl => {
+    if (typeof window !== 'undefined') {
+        window.localStorage.setItem('wallpaper', JSON.stringify(newwallpaperurl));
+    }
+    if (auth.currentUser) {
+        set(ref(db, `users/${auth.currentUser.uid}/wallpaper/`), newwallpaperurl);
+    }
+});
 
 export function showHide(option: string) {
     tooltipviews.update((values: TooltipViews) => {
@@ -86,7 +92,7 @@ export function closeAllViews() {
 function addkeyboardshortcuts() {
     if (typeof window !== 'undefined') {
         window.addEventListener('keydown', (event) => {
-            console.log(event.key);
+    
             if (event.key === 'Escape') {
                 closeAllViews();
             }
