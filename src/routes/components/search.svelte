@@ -70,7 +70,7 @@
 		font-size:120%;
 	}
 
-	input[type='text'] {
+	input[type='search'] {
 		color: var(--ipttextcolor);
 		width: 65%;
 	}
