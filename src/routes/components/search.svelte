@@ -27,12 +27,12 @@
   }
 	const search = () => {
 		let searchUrl = searchProviders[engine] + searchQuery;
-		if ($settingsoptions.find((settingsoption) => settingsoption.name === 'new_tab')?.value) {
-			window.open(searchUrl, '_blank');
-		} else {
-			//open in same tab
-			window.location.href = searchUrl;
-		}
+		// if ($settingsoptions.find((settingsoption) => settingsoption.name === 'new_tab')?.value) {
+		// 	window.open(searchUrl, '_blank');
+		// } else {
+		// 	//open in same tab
+		// 	window.location.href = searchUrl;
+		// }
 	};
     
   onMount(() => {

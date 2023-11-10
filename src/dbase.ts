@@ -2,39 +2,38 @@ import { writable } from "svelte/store";
 import logo from '$lib/res/defuser.webp';
 import wallpaper from '$lib/res/wallw.webp';
 
-var jsonoptns=[
-  {
-    name: 'new_tab',
-    text: 'Open in new tab',
-    value: false,
-    tyfe: 'checkbox'
-  },
-  {
-    name: 'show_favsites',
-    text: 'Show favorite sites',
-    value: true,
-    tyfe: 'checkbox'
-  },
-  {
-    name: 'show_wallpaper',
-    text: 'Show wallpaper',
-    value: true,
-    tyfe: 'checkbox'
-  },
-  {
-    name: 'show_sitename',
-    text: 'Show site names',
-    value: true,
-    tyfe: 'checkbox'
-  }
-]
 
 const siteslists = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('sitelists') || '[]') : [];
 const fontfamm = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('fontfam') || '"sans-serif"') : 'sans-serif';
 const andur = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('animation_duration') || "500") : 500;
 let setopts =     typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('settingsoptions')!)  : [];
 if(setopts.length==0){
-  setopts=jsonoptns;
+  setopts=[
+    {
+      name: 'new_tab',
+      text: 'Open in new tab',
+      value: false,
+      tyfe: 'checkbox'
+    },
+    {
+      name: 'show_favsites',
+      text: 'Show favorite sites',
+      value: true,
+      tyfe: 'checkbox'
+    },
+    {
+      name: 'show_wallpaper',
+      text: 'Show wallpaper',
+      value: true,
+      tyfe: 'checkbox'
+    },
+    {
+      name: 'show_sitename',
+      text: 'Show site names',
+      value: true,
+      tyfe: 'checkbox'
+    }
+  ]
 }
 let csvarslocal = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('cssvars')!) : [];
 if(csvarslocal==null){
@@ -63,7 +62,8 @@ export let sitelists = writable(siteslists);
 export let wallpaperurl = writable(wallpaper);
 export let animation_duration = writable(andur);
 export let fontfam = writable(fontfamm); 
-
+export let settingsoptions = writable(setopts);
+export let cssvars = writable(csvarslocal);
 
 
 
@@ -75,8 +75,7 @@ export let userdata = writable({
   photo: logo,
 });
 
-export let settingsoptions = writable(setopts);
-export let cssvars = writable(csvarslocal);
+
 
 export let fontopt = writable([
   'Arial',

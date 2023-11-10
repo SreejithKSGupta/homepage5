@@ -32,6 +32,16 @@
 		const iconurl = 'https://s2.googleusercontent.com/s2/favicons?domain=' + domain + '&sz=128';
 		return iconurl;
 	}
+	
+	let showSiteName = false;
+
+$: {
+	for (let i in $settingsoptions) {
+		if ($settingsoptions[i].name === 'show_sitename') {
+			showSiteName = $settingsoptions[i].value;      
+		}
+	}
+}
 </script>
 
 
@@ -63,9 +73,9 @@
 					}
 				}}>
 				<img class="siteicon" src={geticon(site.url)} alt="icon" />
-				{#if $settingsoptions.find((settingsoption) => settingsoption.name === 'show_sitename')?.value}
-				{site.name}
-				{/if}
+				{#if showSiteName}
+                     <span>{site.name}</span>
+                {/if}
 			</div>
 			{#if $tooltipviews.editview}
 				<button class="delbtn" on:click={() => deletesite(index)}>
@@ -79,7 +89,7 @@
 	.sitelist {
 		width:clamp(300px,var( --sitelistwidth), var( --sitelistwidth));
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(calc(var(--sitewidth)*1.2), 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(calc(var(--sitewidth)*1.4), 1fr));
 		height: 60vh;
 		overflow-y: scroll;
 	}

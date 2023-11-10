@@ -20,12 +20,22 @@
             });
         });
     });
+    let showsite: boolean ;
+   
+
+    $: {
+           for (let i in $settingsoptions) {
+               if ($settingsoptions[i].name === 'show_favsites') {
+                    showsite = $settingsoptions[i].value;      
+               }
+           }
+    }
     
 </script>
 
         <Topbar />
         <Search />
-        {#if $settingsoptions.find((settingsoption) => settingsoption.name === 'show_favsites')?.value}
+        {#if showsite}
         <Sitelist />
         {/if}
         <Siteoptions/>
