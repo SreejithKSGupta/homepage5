@@ -9,7 +9,7 @@
 
 </script>
 
-<button id="optionsbtn"  on:click={() => showHide('actionview')}>
+<button type="button" id="optionsbtn"  on:click={() => showHide('actionview')}>
 	<img src={options} alt="options" />
 </button>
 <div id="footer" class="row">

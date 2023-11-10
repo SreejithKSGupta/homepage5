@@ -16,10 +16,6 @@
 	};
 
 
-	interface Suggestion {
-		word: string;
-		score: number;
-	}
     function handleKeyUp(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       search();
@@ -27,6 +23,7 @@
   }
 	const search = () => {
 		let searchUrl = searchProviders[engine] + searchQuery;
+		console.log(searchUrl)
 		let newwin = false;
 		for (let i in $settingsoptions) {
                if ($settingsoptions[i].name === 'new_tab') {
@@ -49,16 +46,16 @@
 </script>
 
 <div class="search-bar row">
-	<input type="text" placeholder="Search..." on:keyup={handleKeyUp} bind:value={searchQuery} bind:this={searchInput}/>
+	<input type="text"  placeholder="Search..." on:keyup={handleKeyUp} bind:value={searchQuery} bind:this={searchInput}/>
 
 	<label for="providerSelect">Choose a provider:</label>
-	<select id="providerSelect">
+	<select id="providerSelect" bind:value={engine}>
 		{#each Object.keys(searchProviders) as provider (provider)}
 			<option id={provider} value={provider}>{provider}</option>
 		{/each}
 	</select>
 
-	<button on:click={search}>
+	<button type="submit" on:click={search}>
 		<img src={searchicon} alt="search" />
 	</button>
 </div>

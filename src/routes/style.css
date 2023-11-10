@@ -36,6 +36,7 @@
     transition-duration: var(--animdur);
     animation-duration: var(--animdur);
     user-select: none;
+    -webkit-user-select: none;
 }
 body{
     overscroll-behavior: none;

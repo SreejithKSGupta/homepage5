@@ -45,7 +45,7 @@ $: {
 </script>
 
 
-    <div class="sitelist" role="list">
+    <div class="sitelist" role="list" transition:slide>
 	{#each $sitelists as site, index (site.name)}
 		<div 
 			role="listitem"
@@ -94,9 +94,10 @@ $: {
 		overflow-y: scroll;
 	}
 	.site-item {
-		height:calc(var(--sitewidth)*1.5);
+		height:calc(var(--sitewidth) * 1.8);
 		border-radius:var(--border-radius);
 		margin:var(--margin);
+		justify-content: start;
 	}
 	.site-item:hover, .site-item:focus {
 		transform: scale(1.1);

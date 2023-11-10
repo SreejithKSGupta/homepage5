@@ -6,8 +6,22 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter()
-	},
+    
+			adapter: adapter({
+				pages: 'build',
+				assets: 'build',
+				fallback: undefined,
+				precompress: true,
+				strict: true,
+				prerender: {
+					crawl: true,
+					enabled: true,
+					force: false,
+					pages: ['*'],
+				},
+
+			})
+	}
 
 };
 export default config;
