@@ -46,7 +46,7 @@
 </script>
 
 <div class="search-bar row">
-	<input type="text"  placeholder="Search..." on:keyup={handleKeyUp} bind:value={searchQuery} bind:this={searchInput}/>
+	<input type="search"  placeholder="Search..." on:keyup={handleKeyUp} bind:value={searchQuery} bind:this={searchInput}/>
 
 	<label for="providerSelect">Choose a provider:</label>
 	<select id="providerSelect" bind:value={engine}>

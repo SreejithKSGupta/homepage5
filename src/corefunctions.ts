@@ -2,8 +2,6 @@ import { cssvars,settingsoptions, sitelists, tooltipviews, fontfam, animation_du
 import { auth, db } from './firebase.js';
 import { set, ref,get } from '@firebase/database';
 
-
-
 interface TooltipViews {
     actionview: boolean;
     addsiteview: boolean;
@@ -43,7 +41,6 @@ sitelists.subscribe(newsiteslist => {
         set(ref(db, `users/${auth.currentUser.uid}/sites/`), newsiteslist);
     }
 });
-
 
 animation_duration.subscribe(newanimation_duration => {
     if (typeof window !== 'undefined') {
