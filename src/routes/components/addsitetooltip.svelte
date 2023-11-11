@@ -48,7 +48,7 @@
 		siteUrl = '';
 		showHide('addsiteview');
 	}
-
+	
 </script>
 
 {#if $tooltipviews.addsiteview}

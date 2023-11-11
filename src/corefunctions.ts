@@ -120,9 +120,17 @@ function addkeyboardshortcuts() {
                     }
                 });
             }
-          // if just a letter is pressed, focus on the search bar
+          // if just a letter is pressed, focus on the search bar and no view is open
             if (event.key.length === 1 && !event.altKey) {
-                document.getElementById('searchbar')?.focus();
+                tooltipviews.subscribe(values => {
+                    for (let key in values) {
+                        if (values[key as keyof TooltipViews]) {
+                            return;
+                        }
+                    }
+                    document.getElementById('searchbar')?.focus();
+                });
+               
             }
         });
     }

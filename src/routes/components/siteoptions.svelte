@@ -15,7 +15,7 @@
 <div id="footer" class="row">
 	{#if $tooltipviews.actionview}
 		<div class="tooltip row" transition:scale={{duration:$animation_duration}}>
-			<button on:click={() => showHide('editview')} title="Remove Sites">
+			<button on:click={() => showHide('editview')} id="removesites_btn" title="Remove Sites">
 				<img src={editicon} alt="edit" />
 			</button>
 			<button on:click={() => showHide('addsiteview')} title="Add new Sites">

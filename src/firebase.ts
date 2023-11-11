@@ -59,7 +59,6 @@ const firebaseConfig = {
       })
 
     } else {
-      console.log("Signed out");
       userdata.set({
         name: 'User',
         buttonname: 'sign in',

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { settingsoptions } from '../../dbase.js';
 	import searchicon from '$lib/res/sch.svg';
-	import { onMount } from 'svelte';
 	let searchQuery = '';
 
 	type SearchEngine = 'google' | 'bing' | 'duckduckgo' | 'youtube' | 'reddit';
@@ -36,11 +35,6 @@
 		}
 	};
 
-	onMount(() => {
-		if (!document.activeElement || document.activeElement === document.body) {
-			searchInput.focus();
-		}
-	});
 </script>
 
 <div class="search-bar row">
