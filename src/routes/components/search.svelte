@@ -50,6 +50,7 @@
 		on:keyup={handleKeyUp}
 		bind:value={searchQuery}
 		bind:this={searchInput}
+		id="searchbar"
 	/>
 
 	<label for="providerSelect">Choose a provider:</label>

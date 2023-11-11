@@ -93,22 +93,22 @@ function addkeyboardshortcuts() {
             if (event.key === 'Escape') {
                 closeAllViews();
             }
-            if (event.key === 'a' || 'A' && event.altKey) {
+            if (event.key === ('a' || 'A') && event.altKey) {
                 showHide('addsiteview');
             }
-            if (event.key === 'c' || 'C' && event.altKey) {
+            if (event.key === ('c' || 'C') && event.altKey) {
                 showHide('editview');
             }
-            if (event.key === 's' || 'S' && event.altKey) {
+            if (event.key === ('s' || 'S') && event.altKey) {
                 showHide('settingsview');
             }
-            if (event.key === 'p'|| 'P' && event.altKey) {
+            if (event.key === ('p'|| 'P') && event.altKey) {
                 showHide('profileview');
             }
-            if (event.key === 'h' || 'H' && event.altKey) {
+            if (event.key === ('h' || 'H') && event.altKey) {
                 showHide('aboutview');
             }
-            if (event.key === 'm' || 'M'  && event.altKey) {
+            if (event.key === ('m' || 'M')  && event.altKey) {
                 showHide('actionview');
             }
             // if press a number and alt key, open the site
@@ -119,6 +119,10 @@ function addkeyboardshortcuts() {
                         window.open(values[index].url, '_blank');
                     }
                 });
+            }
+          // if just a letter is pressed, focus on the search bar
+            if (event.key.length === 1 && !event.altKey) {
+                document.getElementById('searchbar')?.focus();
             }
         });
     }

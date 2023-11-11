@@ -7,7 +7,6 @@ corrections:
 
 extended wish:
      ---provide suggestions     
-     ---about me page
      --set a defwebsite image if icon not available
 
 
