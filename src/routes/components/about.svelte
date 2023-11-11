@@ -1,144 +1,114 @@
 <script lang="ts">
 	import { tooltipviews } from '../../dbase.js';
+	let shortcuts = [
+		{ scut: 'alt + s', fn: 'Open Settings' },
+		{ scut: 'alt + a', fn: 'Add New site'  },
+		{ scut: 'alt + p', fn: 'Open Profile'  },
+		{ scut: 'alt + h', fn: 'Open About'    },
+		{ scut: 'alt + c', fn: 'Edit Sites'    },
+		{ scut: 'alt + m', fn: 'More options'  },
+		{ scut: "alt+'n'", fn: 'Open nth Site' },
+		{ scut: 'esc',     fn: 'Close Tooltip' }
+	];
+	let features = [
+		'Add favourite sites',
+		'Sync favourite sites',
+		'No ads',
+		'No trackers',
+		'Nice animations',
+		'Keyboard shortcuts',
+		'Change search engine',
+		'Customizable background',
+		'Customizable icons',
+		'Customizable fonts',
+		'Customizable colors',
+		'Install as PWA',
+		'Install as web extension',
+		'Open source'
+	];
+	let aboutItems = [
+		{
+			title: 'What is Homepage?',
+			description:
+				'Homepage aims to provide an android launcher type interface for web browsers, with ample features and customizations to make your browsing experience more efficient and enjoyable.'
+		},
+		{
+			title: 'Why ?',
+			description:
+				"I first started working on this project because I wanted to have a more efficient way to browse the web. the lack of customization and features in most browsers made me want to create my own. I also wanted to learn more about web development and javascript. If you are unhappy with your current browsing experience, or just want to try something new, give Homepage a try!, it's not only easy, but highly efficient and customizable too, especially if you have multiple devices and multiple frequently visited websites"
+		},
+		{
+			title: 'How to use',
+			description:
+				'Just sign in with your google account, and start adding your favorite websites to your homepage. you can also choose the default search engine easily. alternatively, you can set it to replace the new tab page, or set it as your homepage in your browser settings. you can also use a web extension for doing this easily, which you can find below.'
+		},
+		 {
+			title : "privacy",
+			description : "Homepage does not collect any data from you, and does not use any trackers or analytics. The only data that is stored is your favourite sites, which is stored in your google account, and is only used to sync your favourite sites across devices. Technically, it is as secure as your google account."
+		 }
+	];
+
+	let links = [
+        {
+            name: 'Edge:',
+            url: 'https://microsoftedge.microsoft.com/addons/detail/new-tab-changer/dlbnebcbaeajdpekcdhmcgdhoodcjpeg'
+        },
+        {
+            name: 'Chrome:',
+            url: 'https://chrome.google.com/webstore/detail/new-tab-changer/occbjkhimchkolibngmcefpjlbknggfh'
+        },
+        {
+            name: 'Firefox:',
+            url: 'https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/'
+        },
+    ];
 </script>
 
 {#if $tooltipviews.aboutview}
 	<div class="tooltip">
 		<h1>About</h1>
-		<div class="aboutitem">
-			<h2>What is Homepage?</h2>
-			<p>
-				Homepage aims to provide an android launcher type interface for web browsers, with ample
-				features and customizations to make your browsing experience more efficient and enjoyable.
-			</p>
-		</div>
-		<div class="aboutitem">
-			<h2>Why ?</h2>
-			<p>
-				I first started working on this project because I wanted to have a more efficient way to
-				browse the web. the lack of customization and features in most browsers made me want to
-				create my own. I also wanted to learn more about web development and javascript.
-				<br />
-				If you are unhappy with your current browsing experience, or just want to try something new,
-				give Homepage a try!, it's not only easy, but highly efficient and customizable too, especially
-				if you have multiple devices and muliple frequently wisited websites
-			</p>
-		</div>
-		<div class="aboutitem">
-			<h2>How to use</h2>
-			<p>
-				Just sign in with your google account, and start adding your favorite websites to your
-				homepage. you can also choose the defaut search engine easily.
-				<br />
-				alternatively, youcan set it to replace the newtab page, or set it as your homepage in your browser
-				settings. you can also use a web extention for doing this easily, which you can find below.
-			</p>
-			<ul>
-				<li>
-					<a
-						href="https://microsoftedge.microsoft.com/addons/detail/new-tab-changer/dlbnebcbaeajdpekcdhmcgdhoodcjpeg"
-					>
-						Edge: New Tab Changer
-					</a>
-				</li>
-				<li>
-					<a
-						href="https://chrome.google.com/webstore/detail/new-tab-changer/occbjkhimchkolibngmcefpjlbknggfh"
-					>
-						Chrome: New Tab Changer
-					</a>
-				</li>
+		{#each aboutItems as { title, description }}
+			<div class="aboutitem">
+				<h2>{title}</h2>
+				<p>{description}</p>
+			</div>
+		{/each}
 
-				<li>
-					<a href="https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/">
-						Firefox: New Tab Changer
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="aboutitem">
-			<h2>Features</h2>
-			<ul>
-				<li>Add favourite sites</li>
-				<li>Sync favourite sites</li>
-				<li>No ads</li>
-				<li>No trackers</li>
-				<li>Nice animations</li>
-				<li>Keyboard shortcuts</li>
-				<li>Change search engine</li>
-				<li>Customizable background</li>
-				<li>Customizable icons</li>
-				<li>Customizable fonts</li>
-				<li>Customizable colors</li>
-				<li>Install as PWA</li>
-				<li>Install as web extention</li>
-				<li>Open source</li>
-			</ul>
-		</div>
-		<div class="aboutitem">
-			<h2>Keyboard shortcuts</h2>
-			<ul>
-				<li>
-					<div class="scuts">alt + s</div>
-					<div class="fns">Open Settingsicon</div>
-				</li>
-				<li>
-					<div class="scuts">alt + a</div>
-					<div class="fns">Open New site tooltip</div>
-				</li>
-				<li>
-					<div class="scuts">alt + p</div>
-					<div class="fns">Open Profile</div>
-				</li>
-				<li>
-					<div class="scuts">alt + h</div>
-					<div class="fns">Open About</div>
-				</li>
-				<li>
-					<div class="scuts">alt + c</div>
-					<div class="fns">Edit Sites</div>
-				</li>
-				<li>
-					<div class="scuts">alt + m</div>
-					<div class="fns">More options</div>
-				</li>
-				<li>
-					<div class="scuts">alt+'n'</div>
-					<div class="fns">Open nth Site</div>
-				</li>
-				<li>
-					<div class="scuts">esc</div>
-					<div class="fns">close tooltip</div>
-				</li>
-			</ul>
-		</div>
-		<div class="aboutitem">
-			<h2>Privacy</h2>
-			<p>
-				Homepage does not collect any data from you, and does not use any trackers or analytics.
-				<br />
-				The only data that is stored is your favourite sites, which is stored in your google account,
-				and is only used to sync your favourite sites across devices. Technically, it is as secure as
-				your google account.
-			</p>
-		</div>
-		<div class="aboutitem">
-			<h2>Source code</h2>
-			<p>
-				Homepage is open source, and made with Sveltekit. You can find the source code on github.
-      </p>
-				<a class="btn" href="https://github.com/SreejithKSGupta/homepage5">Github</a>
-			
-		</div>
-		<div class="aboutitem">
-			<h2>Contact</h2>
-			<p>
-				If you have any questions, suggestions, or just want to say hi, you can contact me at
-      </p>
-				<a class="btn" href="mailto:sreejithksgupta2255@gmail.com">GMail</a>
-		
-		</div>
+	<div class="button_links">
+		{#each links as { name, url }}
+			<li>
+				<a href={url}>{name}</a>
+			</li>
+		{/each}
 	</div>
+	<div class="aboutitem">
+		<h2>Features</h2>
+		{#each features as feature}
+			<li>{feature}</li>
+		{/each}
+	</div>
+	<div class="aboutitem">
+		<h2>Keyboard shortcuts</h2>
+		<ul>
+		{#each shortcuts as { scut, fn }}
+			<span>
+				<div class="scuts">{scut}</div>
+				<div class="fns">{fn}</div>
+			</span>
+		{/each}
+	</ul>
+	</div>
+	<div class="aboutitem">
+		<h2>Source code</h2>
+		<p>Homepage is open source, and made with Sveltekit. You can find the source code on github.</p>
+		<a class="btn" href="https://github.com/SreejithKSGupta/homepage5">Github</a>
+	</div>
+	<div class="aboutitem">
+		<h2>Contact</h2>
+		<p>If you have any questions, suggestions, or just want to say hi, you can contact me at</p>
+		<a class="btn" href="mailto:sreejithksgupta2255@gmail.com">Gmail</a>
+	</div>
+</div>
 {/if}
 
 <style>
@@ -155,10 +125,10 @@
 		padding: var(--padding);
 	}
 
-  .tooltip p {
-    margin: 10px;
-    padding: var(--padding);
-  }
+	.tooltip p {
+		margin: 10px;
+		padding: var(--padding);
+	}
 
 	.tooltip h1 {
 		font-size: 250%;
@@ -181,15 +151,19 @@
 		padding: var(--padding);
 		color: var(--primary);
 	}
-	.aboutitem ul {
+	ul {
 		margin: 10px;
 		padding: var(--padding);
 		color: var(--tooltipcol);
 		font-size: 120%;
 	}
-	.aboutitem li {
+	li {
 		display: flex;
 		flex-direction: row;
+		padding: var(--padding);
+	}
+	li:nth-child(odd) {
+		background-color: var(--tooltipbgcol);
 	}
 	.scuts {
 		width: 20%;
@@ -198,18 +172,19 @@
 		width: 70%;
 	}
 
-	.btn {
-    margin: var(--margin);
+	a {
+		margin: var(--margin);
 		padding: 10px;
 		border-radius: var(--border-radius);
 		background-color: blue;
 		text-decoration: none;
+		text-align: center;
 	}
-	.btn:hover {
+	 a:hover {
 		background-color: var(--primary);
 		transform: scale(1.1);
 	}
-	.btn:active {
+	a:active {
 		background-color: var(--primary-active);
 		transform: scale(0.9);
 	}
@@ -219,5 +194,11 @@
 			height: 70vh;
 			top: 15vh;
 		}
+	}
+	.button_links {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 </style>

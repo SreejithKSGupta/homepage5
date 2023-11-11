@@ -18,7 +18,9 @@
     --sitelistwidth:70vw;
     --sitewidth:60px;
     --sitebr:50%;
-
+    
+    --posx:50vh;
+    --posy:50vw;
 }
 
 :root::view-transition {
@@ -95,8 +97,3 @@ img{
 ::-webkit-scrollbar{
     width: 0px;
 }
-
-svg {
-    fill: white !important;
-    color: white !important;
-  }

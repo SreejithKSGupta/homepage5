@@ -41,7 +41,7 @@ const firebaseConfig = {
       userdata.set({
         name: displayName!,
         photo: photoURL!,
-        buttonname: 'sign out',
+        buttonname: 'Sign out',
       });
       const refSites = ref(db, `users/${uid}/sites/`);
       get(refSites).then((snapshot) => {
@@ -61,7 +61,7 @@ const firebaseConfig = {
     } else {
       userdata.set({
         name: 'User',
-        buttonname: 'sign in',
+        buttonname: 'Sign in',
         photo: logo,
       });
     }

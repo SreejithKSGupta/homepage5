@@ -60,8 +60,6 @@ if(localwallpaper==null){
   localwallpaper=defwall;
 }
 
-
-
 export let sitelists = writable(siteslists);
 export let wallpaperurl = writable(localwallpaper);
 export let animation_duration = writable(andur);
@@ -71,7 +69,7 @@ export let cssvars = writable(csvarslocal);
 
 export let userdata = writable({
   name: 'User',
-  buttonname: 'sign in',
+  buttonname: 'Sign in',
   photo: logo,
 });
 export let fontopt = writable([

@@ -55,9 +55,9 @@
 	}
 	#optionsbtn {
 		position: absolute;
-		bottom: 1vh;
-		right: 1vh;
-        opacity: 20%;
+		bottom:var(--padding);
+		right: var(--padding);
+        opacity: 40%;
 	}
     #optionsbtn:hover {
         opacity: 100%;

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import {tooltipviews,sitelists,animation_duration} from '../../dbase.js';
-    import { scale} from 'svelte/transition';
+	import { tooltipviews, sitelists, animation_duration } from '../../dbase.js';
+	import { scale } from 'svelte/transition';
 	import { showHide } from '../../corefunctions.js';
 
 	let siteName = '';
 	let siteUrl = '';
-	
+
 	type Site = {
 		id: number;
 		name: string;
@@ -13,9 +13,9 @@
 	};
 
 	function addSite() {
-		console.log('addSite');
 		if (!isValidInput()) return;
-		const nextId = $sitelists.reduce((maxId: number, site: Site) => Math.max(maxId, site.id), 0) + 1;
+		const nextId =
+			$sitelists.reduce((maxId: number, site: Site) => Math.max(maxId, site.id), 0) + 1;
 		$sitelists = [...$sitelists, { id: nextId, name: siteName, url: siteUrl }];
 		cancel();
 	}
@@ -30,15 +30,16 @@
 			alert('Site name already exists!');
 			return false;
 		}
-        
+
 		if (siteUrl.startsWith('www.')) {
-			siteUrl = 'https://'+siteUrl;
-		} 
-		
+			siteUrl = 'https://' + siteUrl;
+		}
+
 		try {
 			new URL(siteUrl);
 			return true;
 		} catch {
+			alert('Invalid URL!');
 			return false;
 		}
 	}
@@ -48,13 +49,12 @@
 		siteUrl = '';
 		showHide('addsiteview');
 	}
-	
 </script>
 
 {#if $tooltipviews.addsiteview}
-	<div class="tooltip  col" transition:scale={{duration:$animation_duration}}>
+	<div class="tooltip col" transition:scale={{ duration: $animation_duration }}>
 		<input type="text" placeholder="Site Name" bind:value={siteName} />
-		<input type="text" placeholder="Site URL" bind:value={siteUrl}  />
+		<input type="text" placeholder="Site URL" bind:value={siteUrl} />
 		<div class="btns row">
 			<button on:click={cancel}>Cancel</button>
 			<button on:click={addSite}>Add</button>
@@ -65,10 +65,10 @@
 <style>
 	.tooltip {
 		position: absolute;
-        z-index: 6;
-        top: 40vh;
+		z-index: 6;
+		top: 40vh;
 		width: clamp(350px, 60vw, 800px);
-		background-color:var(--tooltipbgcol);
+		background-color: var(--tooltipbgcol);
 		border-radius: var(--border-radius);
 		padding: var(--padding);
 	}
@@ -84,7 +84,7 @@
 		color: #ffffff;
 		font-size: 130%;
 		width: clamp(100px, 20vw, 200px);
-		margin:var(--margin);
+		margin: var(--margin);
 	}
 	@media (max-width: 600px) {
 		.tooltip {

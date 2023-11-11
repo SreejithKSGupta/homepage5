@@ -43,10 +43,10 @@
 
 <style>
 	header {
-		width: 100vw;
+		width: 100%;
 		padding: 0 5vw;
 		background-color: var(--bgcolor);
-		height: 10vh;
+		height: 10%;
 		justify-content: space-between;
 	}
 
