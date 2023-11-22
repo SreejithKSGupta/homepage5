@@ -43,22 +43,22 @@
 				'Just sign in with your google account, and start adding your favorite websites to your homepage. you can also choose the default search engine easily. alternatively, you can set it to replace the new tab page, or set it as your homepage in your browser settings. you can also use a web extension for doing this easily, which you can find below.'
 		},
 		 {
-			title : "privacy",
+			title : "Privacy",
 			description : "Homepage does not collect any data from you, and does not use any trackers or analytics. The only data that is stored is your favourite sites, which is stored in your google account, and is only used to sync your favourite sites across devices. Technically, it is as secure as your google account."
 		 }
 	];
 
 	let links = [
         {
-            name: 'Edge:',
+            name: 'Edge',
             url: 'https://microsoftedge.microsoft.com/addons/detail/new-tab-changer/dlbnebcbaeajdpekcdhmcgdhoodcjpeg'
         },
         {
-            name: 'Chrome:',
+            name: 'Chrome',
             url: 'https://chrome.google.com/webstore/detail/new-tab-changer/occbjkhimchkolibngmcefpjlbknggfh'
         },
         {
-            name: 'Firefox:',
+            name: 'Firefox',
             url: 'https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/'
         },
     ];
@@ -101,12 +101,12 @@
 	<div class="aboutitem">
 		<h2>Source code</h2>
 		<p>Homepage is open source, and made with Sveltekit. You can find the source code on github.</p>
-		<a class="btn" href="https://github.com/SreejithKSGupta/homepage5">Github</a>
+		<a class="btn" href="https://github.com/SreejithKSGupta/homepage5" target="_blank">Github</a>
 	</div>
 	<div class="aboutitem">
 		<h2>Contact</h2>
 		<p>If you have any questions, suggestions, or just want to say hi, you can contact me at</p>
-		<a class="btn" href="mailto:sreejithksgupta2255@gmail.com">Gmail</a>
+		<a class="btn" href="mailto:sreejithksgupta2255@gmail.com" target="_blank">Send Email</a>
 	</div>
 </div>
 {/if}

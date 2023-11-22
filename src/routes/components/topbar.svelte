@@ -62,6 +62,7 @@
 	#clock span {
 		width: 100%;
 		font-size: 200%;
+		font-weight: bold;
 		text-align: left;
 	}
 	#profile {

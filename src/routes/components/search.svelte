@@ -3,15 +3,15 @@
 	import searchicon from '$lib/res/sch.svg';
 	let searchQuery = '';
 
-	type SearchEngine = 'google' | 'bing' | 'duckduckgo' | 'youtube' | 'reddit';
-	let engine: SearchEngine = 'google';
+	type SearchEngine = 'Google' | 'Bing' | 'Duckduckgo' | 'YouTube' | 'Reddit';
+	let engine: SearchEngine = 'Google';
 	let searchInput: any;
 	let searchProviders: Record<SearchEngine, string> = {
-		google: 'https://www.google.com/search?q=',
-		bing: 'https://www.bing.com/search?q=',
-		duckduckgo: 'https://duckduckgo.com/?q=',
-		youtube: 'https://www.youtube.com/results?search_query=',
-		reddit: 'https://www.reddit.com/search/?q='
+		Google: 'https://www.google.com/search?q=',
+		Bing: 'https://www.bing.com/search?q=',
+		Duckduckgo: 'https://duckduckgo.com/?q=',
+		YouTube: 'https://www.youtube.com/results?search_query=',
+		Reddit: 'https://www.reddit.com/search/?q='
 	};
 
 	function handleKeyUp(event: KeyboardEvent) {
@@ -64,9 +64,8 @@
 		width: clamp(400px, 60vw, 1000px);
 		background-color: var(--iptcolor);
 		border-radius: var(--border-radius);
-		padding: var(--padding);
 		margin: var(--margin);
-		font-size: 120%;
+		font-size: 100%;
 	}
 
 	input[type='search'] {

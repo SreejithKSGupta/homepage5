@@ -21,7 +21,7 @@
 		<h1>Settings</h1>
 		<div class="settingsmenu col">
 			<div class="row settingsitem">
-				<label class="settingslabel" for="wallpaper_upload">add a wallpaper</label>
+				<label class="settingslabel" for="wallpaper_upload">Add a wallpaper</label>
 				<input
 					type="file"
 					on:change={handlewallpaperupload}
@@ -130,6 +130,10 @@
 	}
 	input[type='range']{
 		width: 50%;
+	}
+	input , select {
+       padding: 10px;
+	   font-size: 70%;
 	}
 	@media screen and (max-width: 600px) {
 		.tooltip {
