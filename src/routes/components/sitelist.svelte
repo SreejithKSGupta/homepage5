@@ -4,6 +4,14 @@
 	import { slide, scale } from 'svelte/transition';
 	import editicon from '$lib/res/delsite.svg';
 	let hovering = -1;
+  
+	function setdeficon(e: Event) {
+        const target = e.target as HTMLImageElement;
+        if (target) {
+            target.src = editicon;
+        }
+		console.log('error loading image, setting default for ', target.src);
+    }
 
 	function drop(event: DragEvent, target: number) {
 		const start = parseInt(event.dataTransfer!.getData('text/plain'));
@@ -40,7 +48,8 @@
 
 	function geticon(url: string) {
 		const [, , domain] = url.split('/');
-		return `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`;
+		let imgurl= `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`;
+		return imgurl
 	}
 
 	let showSiteName = false;
@@ -90,7 +99,7 @@
 					}
 				}}
 			>
-				<img class="siteicon" src={geticon(site.url)} alt="icon" />
+			<img class="siteicon" src={geticon(site.url)} on:error={setdeficon} alt="{site.url}" />
 				{#if showSiteName}
 					<span>{site.name}</span>
 				{/if}
@@ -133,7 +142,7 @@
 		width: clamp(300px, var(--sitelistwidth), var(--sitelistwidth));
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(calc(var(--sitewidth) * 1.4), 1fr));
-		height: 60%;
+		height: 100%;
 		overflow-y: scroll;
 		transition: all 2s appopen;
 	}
