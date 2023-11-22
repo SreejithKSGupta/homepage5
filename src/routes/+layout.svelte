@@ -30,6 +30,9 @@
 		height: 100%;
 		width: 100%;
 		background-color: var(--bgcol);
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
 	}
 
 </style>
