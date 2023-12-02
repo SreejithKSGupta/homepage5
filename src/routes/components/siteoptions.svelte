@@ -20,15 +20,7 @@
 	<img src={options} alt="options" />
 </button>
 {#if $tooltipviews.actionview}
-	<div
-		id="tooltipbg"
-		role="button"
-		tabindex="0"
-		on:click={() => showHide('actionview')}
-		on:keydown={(e) => {
-			if (e.key === 'Enter') showHide('actionview');
-		}}
-	>
+	
 		<div id="footer" class="row">
 			<div class="tooltip row" transition:scale={{ duration: $animation_duration }}>
 				<button
@@ -61,17 +53,9 @@
 				</button>
 			</div>
 		</div>
-	</div>
 {/if}
 
 <style>
-	#tooltipbg {
-		position: absolute;
-		bottom: 0;
-		width: 100vw;
-		height: 100vh;
-		z-index: 1;
-	}
 	#footer {
 		position: absolute;
 		bottom: 5vh;

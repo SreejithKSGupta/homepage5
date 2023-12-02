@@ -4,6 +4,7 @@
 	import { slide, scale } from 'svelte/transition';
 	import editicon from '$lib/res/delsite.svg';
 	let hovering = -1;
+	let showSiteName = false;
   
 	function setdeficon(e: Event) {
         const target = e.target as HTMLImageElement;
@@ -51,8 +52,6 @@
 		let imgurl= `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`;
 		return imgurl
 	}
-
-	let showSiteName = false;
 
 	$: {
 		const option = $settingsoptions.find(
@@ -142,16 +141,16 @@
 		width: clamp(300px, var(--sitelistwidth), var(--sitelistwidth));
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(calc(var(--sitewidth) * 1.4), 1fr));
-		height: 100%;
+		grid-auto-rows: calc(var(--sitewidth) * 1.8);
+		max-height: 100%;
 		overflow-y: scroll;
 		transition: all 2s appopen;
 	}
 	.site-item {
 		height: calc(var(--sitewidth) * 1.8);
 		border-radius: var(--border-radius);
-		margin: var(--margin);
+		padding: var(--padding);
 		justify-content: start;
-		animation: fade-out 0.5s ease-in-out;
 	}
 	.site-item:hover {
 		transform: scale(1.1);
