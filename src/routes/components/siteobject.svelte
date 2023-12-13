@@ -1,20 +1,24 @@
 <script lang="ts">
 	import { scale } from 'svelte/transition';
-
 	import editicon from '$lib/res/delsite.svg';
 	import defsiteicon from '$lib/res/defsite.svg'
-	import { settingsoptions, tooltipviews, sitelists } from '../../dbase';
-	import { set } from 'firebase/database';
+	import { settingsoptions,siteanim, tooltipviews, sitelists } from '../../dbase';
 	let showSiteName = false;
 	export let site: { id: number; name: string; url: string };
 	export let index: number;
 
-	function gotowebsite(url: string, e: Event) {
-		if ($settingsoptions[0].value == 0) {
-		   
-		}
-		$settingsoptions[0].value ? window.open(url, '_blank') : (window.location.href = url);
-	}
+
+	async function gotowebsite(url: string, e: Event) {
+    let parent = (e.currentTarget as HTMLElement).parentElement!;
+    if ($settingsoptions[0].value == 0) {
+        parent.style.zIndex = '22'; 
+        siteanim.set(true);
+        let rect = parent.getBoundingClientRect();
+        let {left: x, top: y, width: w, height: h} = rect, cx = x + w / 2, cy = y + h / 2, dx = window.innerWidth / 2 - cx, dy = window.innerHeight / 2 - cy;
+        parent.style.transform = `translate(${dx}px, ${dy}px)`;
+    }
+	$settingsoptions[0].value ? window.open(url, '_blank') : (window.location.href = url);
+}
 
 	function geticon(url: string) {
 		const [, , domain] = url.split('/');
@@ -77,7 +81,6 @@
 	.sitebtn {
 		font-size: 170%;
 		border-radius: var(--sitebr);
-		background-color: white;
 		position: relative;
 	}
 	.sitebtn:hover,
@@ -90,6 +93,7 @@
 		border-radius: var(--sitebr);
 		width: var(--sitewidth);
 		height: var(--sitewidth);
+		background-color: white;
 	}
 	.delbtn,
 	.delbtn img {
@@ -101,5 +105,6 @@
         border:  30px rgba(0, 0, 0, 0.664);
         border-radius: var(--sitebr);
 	}
+
 
 </style>

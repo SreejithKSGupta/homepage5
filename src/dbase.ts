@@ -66,6 +66,7 @@ export let animation_duration = writable(andur);
 export let fontfam = writable(fontfamm); 
 export let settingsoptions = writable(setopts);
 export let cssvars = writable(csvarslocal);
+export let siteanim = writable(false);
 
 export let userdata = writable({
   name: 'User',
