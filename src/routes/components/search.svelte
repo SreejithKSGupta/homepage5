@@ -50,6 +50,7 @@
 	<label for="providerSelect">Choose a provider:</label>
 	<select id="providerSelect" bind:value={engine}>
 		{#each Object.keys(searchProviders) as provider (provider)}
+		    <label for={provider}>{provider}</label>
 			<option id={provider} value={provider}>{provider}</option>
 		{/each}
 	</select>
