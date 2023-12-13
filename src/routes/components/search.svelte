@@ -47,13 +47,14 @@
 		id="searchbar"
 	/>
 
-	<label for="providerSelect">Choose a provider:</label>
-	<select id="providerSelect" bind:value={engine}>
+	<label>Choose a provider:
+		<select id="providerSelect" bind:value={engine}>
 		{#each Object.keys(searchProviders) as provider (provider)}
 		    <label for={provider}>{provider}</label>
 			<option id={provider} value={provider}>{provider}</option>
 		{/each}
 	</select>
+</label>
 
 	<button type="submit" on:click={search} title="Go">
 		<img src={searchicon} alt="search" />
