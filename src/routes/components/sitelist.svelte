@@ -48,15 +48,10 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(calc(var(--sitewidth) * 1.4), 1fr));
 		grid-auto-rows: calc(var(--sitewidth) * 1.8);
-		max-height: 100%;
+		height: 100%;
 		overflow-y: scroll;
-		transition: all 2s appopen;
 	}
-	.site-item {
-		height: calc(var(--sitewidth) * 1.8);
-		justify-content: start;
-		border-radius: var(--border-radius);
-	}
+
 	.site-item:focus,
 	.site-item:hover {
 		transform: scale(1.1);

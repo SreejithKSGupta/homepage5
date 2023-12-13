@@ -4,13 +4,14 @@
 	import editicon from '$lib/res/delsite.svg';
 	import defsiteicon from '$lib/res/defsite.svg'
 	import { settingsoptions, tooltipviews, sitelists } from '../../dbase';
+	import { set } from 'firebase/database';
 	let showSiteName = false;
 	export let site: { id: number; name: string; url: string };
 	export let index: number;
 
-	function gotowebsite(url: string, target: EventTarget) {
+	function gotowebsite(url: string, e: Event) {
 		if ($settingsoptions[0].value == 0) {
-			// full screen animation
+		   
 		}
 		$settingsoptions[0].value ? window.open(url, '_blank') : (window.location.href = url);
 	}
@@ -51,12 +52,12 @@
 	tabindex="-1"
 	on:click={(event) => {
 		if (event.target) {
-			gotowebsite(site.url, event.target);
+			gotowebsite(site.url, event);
 		}
 	}}
 	on:keydown={(event) => {
 		if (event.key === 'Enter' && event.target) {
-			gotowebsite(site.url, event.target);
+			gotowebsite(site.url, event);
 		}
 	}}
 >
@@ -76,7 +77,6 @@
 	.sitebtn {
 		font-size: 170%;
 		border-radius: var(--sitebr);
-		margin: calc(var(--margin) * 3);
 		background-color: white;
 		position: relative;
 	}
@@ -84,9 +84,12 @@
 	.sitebtn:focus {
 		color: var(--primary);
 	}
+
+	
 	.siteicon {
 		border-radius: var(--sitebr);
 		width: var(--sitewidth);
+		height: var(--sitewidth);
 	}
 	.delbtn,
 	.delbtn img {

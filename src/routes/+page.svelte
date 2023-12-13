@@ -43,7 +43,7 @@
 <About />
 <style>
 	#showsitesbox {
-		height: 70%;
+		height: 70vh;
 	}
 
 </style>
