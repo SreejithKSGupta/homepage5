@@ -19,54 +19,54 @@ self.addEventListener('install', (event) => {
 	event.waitUntil(addFilesToCache());
 });
 
-// self.addEventListener('activate', (event) => {
-// 	// Remove previous cached data from disk
-// 	async function deleteOldCaches() {
-// 		for (const key of await caches.keys()) {
-// 			if (key !== CACHE) await caches.delete(key);
-// 		}
-// 	}
+self.addEventListener('activate', (event) => {
+	// Remove previous cached data from disk
+	async function deleteOldCaches() {
+		for (const key of await caches.keys()) {
+			if (key !== CACHE) await caches.delete(key);
+		}
+	}
 
-// 	event.waitUntil(deleteOldCaches());
-// });
+	event.waitUntil(deleteOldCaches());
+});
 
-// self.addEventListener('fetch', (event) => {
-// 	// ignore POST requests etc
-// 	if (event.request.method !== 'GET') return;
+self.addEventListener('fetch', (event) => {
+	// ignore POST requests etc
+	if (event.request.method !== 'GET') return;
 
-// 	async function respond() {
-// 		const url = new URL(event.request.url);
-// 		const cache = await caches.open(CACHE);
+	async function respond() {
+		const url = new URL(event.request.url);
+		const cache = await caches.open(CACHE);
 
-// 		if (ASSETS.includes(url.pathname)) {
-// 			const response = await cache.match(url.pathname);
+		if (ASSETS.includes(url.pathname)) {
+			const response = await cache.match(url.pathname);
 
-// 			if (response) {
-// 				return response;
-// 			}
-// 		}
+			if (response) {
+				return response;
+			}
+		}
 
-// 		try {
-// 			const response = await fetch(event.request);
+		try {
+			const response = await fetch(event.request);
 
-// 			if (!(response instanceof Response)) {
-// 				throw new Error('invalid response from fetch');
-// 			}
+			if (!(response instanceof Response)) {
+				throw new Error('invalid response from fetch');
+			}
 
-// 			if (response.status === 200) {
-// 				cache.put(event.request, response.clone());
-// 			}
+			if (response.status === 200) {
+				cache.put(event.request, response.clone());
+			}
 
-// 			return response;
-// 		} catch (err) {
-// 			const response = await cache.match(event.request);
+			return response;
+		} catch (err) {
+			const response = await cache.match(event.request);
 
-// 			if (response) {
-// 				return response;
-// 			}
-// 			throw err;
-// 		}
-// 	}
+			if (response) {
+				return response;
+			}
+			throw err;
+		}
+	}
 
-// 	event.respondWith(respond());
-// });
+	event.respondWith(respond());
+});
