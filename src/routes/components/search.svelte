@@ -145,14 +145,13 @@
 			padding: calc(var(--padding) * 0.1);
 		}
 
-		/* select {
-			width: 25%;
-			font-size: 80%;
-		} */
+	.dropdown-content {
+		right: 1px;
+	}
 	}
 	.dropdown {
 		position: relative;
-		width: 20px;
+		width: 40px;
 		display: inline-block;
 		color: black;
 	}
