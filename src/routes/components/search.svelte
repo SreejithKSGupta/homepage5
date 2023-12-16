@@ -52,7 +52,7 @@
 
 	function geticon(url: string) {
 		const [, , domain] = url.split('/');
-		let imgurl = `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`;
+		let imgurl = `https://www.google.com/s2/favicons?sz=256&domain=${domain}`;
 		return imgurl;
 	}
 	function getIconUrl(provider: string) {
