@@ -22,7 +22,7 @@
 {#if $tooltipviews.actionview}
 	
 		<div id="footer" class="row">
-			<div class="tooltip row" transition:scale={{ duration: $animation_duration }}>
+			<div class="tooltip"  transition:scale={{ duration: $animation_duration }}>
 				<button
 					on:click={() => showHide('editview')}
 					on:keydown={(e) => {

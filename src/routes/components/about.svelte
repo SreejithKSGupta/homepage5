@@ -65,8 +65,8 @@
 </script>
 
 {#if $tooltipviews.aboutview}
-	<div class="tooltip">
-		<h1>About</h1>
+	<div  class="tooltip">
+		<h1 class="aboutitem" id="aboutheading">About</h1>
 		{#each aboutItems as { title, description }}
 			<div class="aboutitem">
 				<h2>{title}</h2>
@@ -144,6 +144,10 @@
 		background-color: rgb(29, 24, 29);
 		color: var(--tooltipcol);
 		font-size: 120%;
+	}
+
+	.aboutitem:focus-within {
+		box-shadow: 0px 0px 1px 1px var(--primary);
 	}
 	.aboutitem h2 {
 		font-size: 150%;

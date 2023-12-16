@@ -2,7 +2,6 @@ import { writable } from "svelte/store";
 import logo from '$lib/res/defuser.svg';
 import defwall from '$lib/res/wallw.svg';
 
-
 const siteslists = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('sitelists') || '[]') : [];
 const fontfamm = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('fontfam') || '"sans-serif"') : 'sans-serif';
 const andur = typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('animation_duration') || "500") : 500;
@@ -67,6 +66,8 @@ export let fontfam = writable(fontfamm);
 export let settingsoptions = writable(setopts);
 export let cssvars = writable(csvarslocal);
 export let siteanim = writable(false);
+export let focusbar = writable('searchbar');
+export let focusbtn = writable('searchbtn');
 
 export let userdata = writable({
   name: 'User',
@@ -122,3 +123,4 @@ export let tooltipviews = writable({
   profileview: false,
   aboutview: false,
 });
+

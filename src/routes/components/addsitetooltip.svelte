@@ -49,15 +49,20 @@
 		siteUrl = '';
 		showHide('addsiteview');
 	}
+
 </script>
 
 {#if $tooltipviews.addsiteview}
 	<div class="tooltip col" transition:scale={{ duration: $animation_duration }}>
-		<input type="text" placeholder="Site Name" bind:value={siteName} />
+		<input type="text" id="sitenameipt" placeholder="Site Name" on:keyup={event => {
+			if (event.key === 'Enter') {
+				addSite();
+			}
+		}} bind:value={siteName} />
 		<input type="text" placeholder="Site URL" bind:value={siteUrl} />
 		<div class="btns row">
 			<button on:click={cancel}>Cancel</button>
-			<button on:click={addSite}>Add</button>
+			<button on:click={addSite} id="addsitebtn">Add</button>
 		</div>
 	</div>
 {/if}

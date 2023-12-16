@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { settingsoptions } from '../../dbase.js';
+	import { scale } from 'svelte/transition';
+	import { settingsoptions,siteanim 	 } from '../../dbase.js';
 	import searchicon from '$lib/res/sch.svg';
 	let searchQuery = '';
 
@@ -14,12 +15,9 @@
 		Reddit: 'https://www.reddit.com/search/?q='
 	};
 
-	function handleKeyUp(event: KeyboardEvent) {
-		if (event.key === 'Enter') {
-			search();
-		}
-	}
+
 	const search = () => {
+		siteanim.set(true);
 		let searchUrl = searchProviders[engine] + searchQuery;
 		console.log(searchUrl);
 		let newwin = false;
@@ -41,22 +39,26 @@
 	<input
 		type="search"
 		placeholder="Search..."
-		on:keyup={handleKeyUp}
+		on:keyup={event => {
+			if (event.key === 'Enter') {
+				search();
+			}
+		}}
 		bind:value={searchQuery}
 		bind:this={searchInput}
 		id="searchbar"
 	/>
 
-	<label>Choose a provider:
-		<select id="providerSelect" bind:value={engine}>
+	
+		<select aria-label="select search engine" id="providerSelect" bind:value={engine}>
 		{#each Object.keys(searchProviders) as provider (provider)}
 		    <label for={provider}>{provider}</label>
 			<option id={provider} value={provider}>{provider}</option>
 		{/each}
 	</select>
-</label>
 
-	<button type="submit" on:click={search} title="Go">
+
+	<button type="submit" on:click={search} id="searchbtn" title="Go">
 		<img src={searchicon} alt="search" />
 	</button>
 </div>
@@ -73,6 +75,12 @@
 	input[type='search'] {
 		color: var(--ipttextcolor);
 		width: 65%;
+	}
+
+	input:focus {
+		transform: none;
+		box-shadow: none;
+		outline: none;
 	}
 	label {
 		display: none;

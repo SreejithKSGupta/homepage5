@@ -18,11 +18,10 @@
 	}
 </script>
 
-<div class="sitelist" role="list" transition:slide>
+<div class="sitelist" id="sitelist" role="list" transition:slide>
 	{#each $sitelists as site, index (site.name)}
 		<div
 			role="listitem"
-			tabindex="-1"
 			aria-dropeffect="move"
 			class="site-item col"
 			animate:flip={{ duration: 250 }}

@@ -53,7 +53,7 @@
 	title={site.url}
 	class="sitebtn col"
 	role="button"
-	tabindex="-1"
+	tabindex="0"
 	on:click={(event) => {
 		if (event.target) {
 			gotowebsite(site.url, event);

@@ -1,4 +1,5 @@
-import { cssvars,settingsoptions, sitelists, tooltipviews, fontfam, animation_duration, wallpaperurl } from './dbase';
+
+import { cssvars,settingsoptions, sitelists, tooltipviews, fontfam, animation_duration, wallpaperurl,focusbar,focusbtn } from './dbase';
 import { auth, db } from './firebase.js';
 import { set, ref,get } from '@firebase/database';
 
@@ -64,6 +65,43 @@ wallpaperurl.subscribe(newwallpaperurl => {
     }
 });
 
+tooltipviews.subscribe((values) => {
+    setTimeout(() => {
+    if (values.addsiteview == true) {
+            focusbar.set('sitenameipt');
+    }
+    else if (values.editview == true) {
+        console.log('editview is visisble'); // not set
+        if(typeof window !== 'undefined'){
+            let firstchild = document.getElementById('sitelist')!.firstElementChild as HTMLElement;
+            console.log(firstchild);
+            firstchild.focus();            
+
+                }
+        }
+    else if (values.settingsview == true) {
+        focusbar.set('wallpaper_upload');
+    }
+    else if (values.profileview == true) {
+        focusbar.set('showsettiggg');
+    }
+    else if (values.aboutview == true) {
+        console.log('aboutview is visisble'); // not completely set
+        focusbar.set('aboutheading');
+    }
+    else if (values.actionview == true) {
+        focusbar.set('removesites_btn');
+    } 
+    else {
+        focusbar.set('searchbar');
+    }
+ 
+}, 100);
+  
+});
+
+
+
 export function showHide(option: string) {
     tooltipviews.update((values: TooltipViews) => {
         for (let key in values) {
@@ -86,56 +124,61 @@ export function closeAllViews() {
     });
 }
 
-function addkeyboardshortcuts() {
-    if (typeof window !== 'undefined') {
-        window.addEventListener('keydown', (event) => {
+if(typeof window !== 'undefined'){
+         focusbar.subscribe((values) => {
+        setTimeout(() => {
+            let element = document.getElementById(values);
+            if (element) {
+                element.focus();
+            }
+        }
+            , 50);
+    }
+    );
+
+
+    window.addEventListener('keydown', (event) => {
     
-            if (event.key === 'Escape') {
-                closeAllViews();
-            }
-            if (event.key === ('a' || 'A') && event.altKey) {
-                showHide('addsiteview');
-            }
-            if (event.key === ('c' || 'C') && event.altKey) {
-                showHide('editview');
-            }
-            if (event.key === ('s' || 'S') && event.altKey) {
-                showHide('settingsview');
-            }
-            if (event.key === ('p'|| 'P') && event.altKey) {
-                showHide('profileview');
-            }
-            if (event.key === ('h' || 'H') && event.altKey) {
-                showHide('aboutview');
-            }
-            if (event.key === ('m' || 'M')  && event.altKey) {
-                showHide('actionview');
-            }
-            // if press a number and alt key, open the site
-            if (event.altKey && !isNaN(Number(event.key))) {
-                let index = Number(event.key) - 1;
-                sitelists.subscribe(values => {
-                    if (index < values.length) {
-                        window.open(values[index].url, '_blank');
-                    }
-                });
-            }
-          // if just a letter is pressed, focus on the search bar and no view is open
-            if (event.key.length === 1 && !event.altKey) {
-                tooltipviews.subscribe(values => {
-                    for (let key in values) {
-                        if (values[key as keyof TooltipViews]) {
-                            return;
-                        }
-                    }
-                    document.getElementById('searchbar')?.focus();
-                });
-               
+        if (event.key === 'Escape') {
+            closeAllViews();
+            return;
+        }
+
+        if (event.altKey && event.key) {
+        shortcutkeys(event);
+        opensite(event);
+        }
+        });
+}
+
+function  shortcutkeys(event: KeyboardEvent){
+    
+    if (event.altKey) {
+        switch (event.key.toLowerCase()) {
+            case 'a':  showHide('addsiteview');
+                       break;
+            case 'c':  showHide('editview');
+                       break;
+            case 's':  showHide('settingsview');
+                       break;
+            case 'p':  showHide('profileview');
+                       break;
+            case 'h':  showHide('aboutview');
+                       break;
+            case 'm':  showHide('actionview');
+                       break;
+            default:   break;
+        }
+    }
+}
+
+function opensite(event: KeyboardEvent){ // if press a number and alt key, open the site    
+      if (event.altKey && !isNaN(Number(event.key))) {
+        let index = Number(event.key) - 1;
+        sitelists.subscribe(values => {
+            if (index < values.length) {
+                window.open(values[index].url, '_blank');
             }
         });
     }
 }
- 
-
-
-addkeyboardshortcuts();
