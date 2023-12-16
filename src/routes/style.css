@@ -1,64 +1,70 @@
-:root{
-    --bgcol:#16041f;
-    --primary:#17dfc4;
-    --secondary:#473a02;
-    --textcolor:#fff;
-    --iptcolor:#fff;
-    --ipttextcolor:#000;
+:root {
+    --bgcol: #16041f;
+    --primary: #17dfc4;
+    --secondary: #473a02;
+    --textcolor: #fff;
+    --iptcolor: #fff;
+    --ipttextcolor: #000;
     --font: sans-serif;
-    --tooltipbgcol:#052529;
-    
-    --font-size: 16px;
-    --font-weight:400;
-    --margin:10px;
-    --padding:10px;
-    --border-radius:20px;
-    --animdur:500ms;
+    --tooltipbgcol: #052529;
 
-    --sitelistwidth:70vw;
-    --sitewidth:60px;
-    --sitebr:50%;
-    
-    --posx:50vh;
-    --posy:50vw;
+    --font-size: 16px;
+    --font-weight: 400;
+    --margin: 10px;
+    --padding: 10px;
+    --border-radius: 20px;
+    --animdur: 500ms;
+
+    --sitelistwidth: 70vw;
+    --sitewidth: 60px;
+    --sitebr: 50%;
+
+    --posx: 50vh;
+    --posy: 50vw;
 }
 
 :root::view-transition {
     transition: opacity 0.5s ease-in-out;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: var(--font);
-    font-weight:var(--font-weight) ;
-    color:var(--textcolor);
+    font-weight: var(--font-weight);
+    color: var(--textcolor);
     font-size: var(--font-size);
     transition-duration: var(--animdur);
     animation-duration: var(--animdur);
     user-select: none;
     -webkit-user-select: none;
 }
-body{
+
+body {
     overscroll-behavior: none;
 }
-button{
+
+button {
     cursor: pointer;
     outline: none;
     border: none;
     background-color: transparent;
     font-weight: bolder;
 }
-button:hover, .site-item:focus{
+
+button:hover,
+.site-item:focus {
     transform: scale(1.05);
 }
-button:active{
+
+button:active {
     transform: scale(0.95);
-  
+
 }
 
-input , select {
+input,
+select {
     border: none;
     outline: none;
     background-color: var(--iptcolor);
@@ -72,28 +78,32 @@ input , select {
 
 
 
-button:focus, input:focus, select:focus{
+button:focus,
+input:focus,
+select:focus {
     transform: scale(1.05);
     box-shadow: 0px 0px 1px 1px var(--primary);
 }
 
-option{
+option {
     background-color: var(--bgcol);
     color: var(--textcolor);
     font-size: 100%;
 }
-img{
+
+img {
     aspect-ratio: 1/1;
 }
 
-.row{
+.row {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
-.col{
+
+.col {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -103,6 +113,6 @@ img{
 
 
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 0px;
 }

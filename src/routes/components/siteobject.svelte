@@ -1,24 +1,27 @@
 <script lang="ts">
 	import { scale } from 'svelte/transition';
 	import editicon from '$lib/res/delsite.svg';
-	import defsiteicon from '$lib/res/defsite.svg'
-	import { settingsoptions,siteanim, tooltipviews, sitelists } from '../../dbase';
+	import defsiteicon from '$lib/res/defsite.svg';
+	import { settingsoptions, siteanim, tooltipviews, sitelists } from '../../dbase';
 	let showSiteName = false;
 	export let site: { id: number; name: string; url: string };
 	export let index: number;
 
-
 	async function gotowebsite(url: string, e: Event) {
-    let parent = (e.currentTarget as HTMLElement).parentElement!;
-    if ($settingsoptions[0].value == 0) {
-        parent.style.zIndex = '22'; 
-        siteanim.set(true);
-        let rect = parent.getBoundingClientRect();
-        let {left: x, top: y, width: w, height: h} = rect, cx = x + w / 2, cy = y + h / 2, dx = window.innerWidth / 2 - cx, dy = window.innerHeight / 2 - cy;
-        parent.style.transform = `translate(${dx}px, ${dy}px)`;
-    }
-	$settingsoptions[0].value ? window.open(url, '_blank') : (window.location.href = url);
-}
+		let parent = (e.currentTarget as HTMLElement).parentElement!;
+		if ($settingsoptions[0].value == 0) {
+			parent.style.zIndex = '22';
+			siteanim.set(true);
+			let rect = parent.getBoundingClientRect();
+			let { left: x, top: y, width: w, height: h } = rect,
+				cx = x + w / 2,
+				cy = y + h / 2,
+				dx = window.innerWidth / 2 - cx,
+				dy = window.innerHeight / 2 - cy;
+			parent.style.transform = `translate(${dx}px, ${dy}px)`;
+		}
+		$settingsoptions[0].value ? window.open(url, '_blank') : (window.location.href = url);
+	}
 
 	function geticon(url: string) {
 		const [, , domain] = url.split('/');
@@ -32,7 +35,7 @@
 		}
 	}
 	function deletesite(option: number) {
-        event!.stopPropagation();
+		event!.stopPropagation();
 		const newTracklist = [...$sitelists];
 		newTracklist.splice(option, 1);
 		sitelists.set(newTracklist);
@@ -46,7 +49,6 @@
 			showSiteName = option.value;
 		}
 	}
-
 </script>
 
 <div
@@ -88,7 +90,6 @@
 		color: var(--primary);
 	}
 
-	
 	.siteicon {
 		border-radius: var(--sitebr);
 		width: var(--sitewidth);
@@ -102,9 +103,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-        border:  30px rgba(0, 0, 0, 0.664);
-        border-radius: var(--sitebr);
+		border: 30px rgba(0, 0, 0, 0.664);
+		border-radius: var(--sitebr);
 	}
-
-
 </style>

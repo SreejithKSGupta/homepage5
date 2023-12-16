@@ -1,7 +1,7 @@
 
-import { cssvars,settingsoptions, sitelists, tooltipviews, fontfam, animation_duration, wallpaperurl,focusbar,focusbtn } from './dbase';
+import { cssvars, settingsoptions, sitelists, tooltipviews, fontfam, animation_duration, wallpaperurl, focusbar,  searchengine } from './dbase';
 import { auth, db } from './firebase.js';
-import { set, ref,get } from '@firebase/database';
+import { set, ref } from '@firebase/database';
 
 interface TooltipViews {
     actionview: boolean;
@@ -19,7 +19,7 @@ cssvars.subscribe(newcssvars => {
             if (document.documentElement != undefined) {
                 if (element.unit == 'color')
                     document.documentElement.style.setProperty(element.name, element.value);
-                    
+
                 else
                     document.documentElement.style.setProperty(element.name, element.value + element.unit);
             }
@@ -67,39 +67,42 @@ wallpaperurl.subscribe(newwallpaperurl => {
 
 tooltipviews.subscribe((values) => {
     setTimeout(() => {
-    if (values.addsiteview == true) {
+        if (values.addsiteview == true) {
             focusbar.set('sitenameipt');
-    }
-    else if (values.editview == true) {
-        console.log('editview is visisble'); // not set
-        if(typeof window !== 'undefined'){
-            let firstchild = document.getElementById('sitelist')!.firstElementChild as HTMLElement;
-            console.log(firstchild);
-            firstchild.focus();            
-
-                }
         }
-    else if (values.settingsview == true) {
-        focusbar.set('wallpaper_upload');
-    }
-    else if (values.profileview == true) {
-        focusbar.set('showsettiggg');
-    }
-    else if (values.aboutview == true) {
-        console.log('aboutview is visisble'); // not completely set
-        focusbar.set('aboutheading');
-    }
-    else if (values.actionview == true) {
-        focusbar.set('removesites_btn');
-    } 
-    else {
-        focusbar.set('searchbar');
-    }
- 
-}, 100);
-  
+        else if (values.editview == true) {
+            console.log('editview is visisble'); // not set
+            if (typeof window !== 'undefined') {
+                let firstchild = document.getElementById('sitelist')!.firstElementChild as HTMLElement;
+                firstchild.focus();
+            }
+        }
+        else if (values.settingsview == true) {
+            focusbar.set('wallpaper_upload');
+        }
+        else if (values.profileview == true) {
+            focusbar.set('showsettiggg');
+        }
+        else if (values.aboutview == true) {
+            console.log('aboutview is visisble'); // not completely set
+            focusbar.set('aboutheading');
+        }
+        else if (values.actionview == true) {
+            focusbar.set('removesites_btn');
+        }
+        else {
+            focusbar.set('searchbar');
+        }
+
+    }, 100);
+
 });
 
+searchengine.subscribe(newsearchengine => {
+    if (typeof window !== 'undefined') {
+        window.localStorage.setItem('searchengine', JSON.stringify(newsearchengine));
+    }
+});
 
 
 export function showHide(option: string) {
@@ -124,8 +127,8 @@ export function closeAllViews() {
     });
 }
 
-if(typeof window !== 'undefined'){
-         focusbar.subscribe((values) => {
+if (typeof window !== 'undefined') {
+    focusbar.subscribe((values) => {
         setTimeout(() => {
             let element = document.getElementById(values);
             if (element) {
@@ -138,42 +141,42 @@ if(typeof window !== 'undefined'){
 
 
     window.addEventListener('keydown', (event) => {
-    
+
         if (event.key === 'Escape') {
             closeAllViews();
             return;
         }
 
         if (event.altKey && event.key) {
-        shortcutkeys(event);
-        opensite(event);
+            shortcutkeys(event);
+            opensite(event);
         }
-        });
+    });
 }
 
-function  shortcutkeys(event: KeyboardEvent){
-    
+function shortcutkeys(event: KeyboardEvent) {
+
     if (event.altKey) {
         switch (event.key.toLowerCase()) {
-            case 'a':  showHide('addsiteview');
-                       break;
-            case 'c':  showHide('editview');
-                       break;
-            case 's':  showHide('settingsview');
-                       break;
-            case 'p':  showHide('profileview');
-                       break;
-            case 'h':  showHide('aboutview');
-                       break;
-            case 'm':  showHide('actionview');
-                       break;
-            default:   break;
+            case 'a': showHide('addsiteview');
+                break;
+            case 'c': showHide('editview');
+                break;
+            case 's': showHide('settingsview');
+                break;
+            case 'p': showHide('profileview');
+                break;
+            case 'h': showHide('aboutview');
+                break;
+            case 'm': showHide('actionview');
+                break;
+            default: break;
         }
     }
 }
 
-function opensite(event: KeyboardEvent){ // if press a number and alt key, open the site    
-      if (event.altKey && !isNaN(Number(event.key))) {
+function opensite(event: KeyboardEvent) { // if press a number and alt key, open the site    
+    if (event.altKey && !isNaN(Number(event.key))) {
         let index = Number(event.key) - 1;
         sitelists.subscribe(values => {
             if (index < values.length) {
