@@ -66,9 +66,10 @@
 			gotowebsite(site.url, event);
 		}
 	}}
-><a href={site.url}>
-	<img class="siteicon" src={geticon(site.url)} on:error={setdeficon} alt={site.url} />
-</a>
+>
+	<a href={site.url}>
+		<img class="siteicon" src={geticon(site.url)} on:error={setdeficon} alt={site.url} />
+	</a>
 	{#if $tooltipviews.editview}
 		<button class="delbtn" on:click={() => deletesite(index)} title="remove {site.name}">
 			<img transition:scale src={editicon} alt="edit" />

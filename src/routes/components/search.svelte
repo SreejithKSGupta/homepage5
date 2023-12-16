@@ -100,8 +100,6 @@
 			{/each}
 		</div>
 	</div>
-
-	
 </div>
 
 <style>
@@ -145,9 +143,9 @@
 			padding: calc(var(--padding) * 0.1);
 		}
 
-	.dropdown-content {
-		right: 1px;
-	}
+		.dropdown-content {
+			right: 1px;
+		}
 	}
 	.dropdown {
 		position: relative;

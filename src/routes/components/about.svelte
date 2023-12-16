@@ -2,13 +2,13 @@
 	import { tooltipviews } from '../../dbase.js';
 	let shortcuts = [
 		{ scut: 'alt + s', fn: 'Open Settings' },
-		{ scut: 'alt + a', fn: 'Add New site'  },
-		{ scut: 'alt + p', fn: 'Open Profile'  },
-		{ scut: 'alt + h', fn: 'Open About'    },
-		{ scut: 'alt + c', fn: 'Edit Sites'    },
-		{ scut: 'alt + m', fn: 'More options'  },
+		{ scut: 'alt + a', fn: 'Add New site' },
+		{ scut: 'alt + p', fn: 'Open Profile' },
+		{ scut: 'alt + h', fn: 'Open About' },
+		{ scut: 'alt + c', fn: 'Edit Sites' },
+		{ scut: 'alt + m', fn: 'More options' },
 		{ scut: "alt+'n'", fn: 'Open nth Site' },
-		{ scut: 'esc',     fn: 'Close Tooltip' }
+		{ scut: 'esc', fn: 'Close Tooltip' }
 	];
 	let features = [
 		'Add favourite sites',
@@ -42,30 +42,31 @@
 			description:
 				'Just sign in with your google account, and start adding your favorite websites to your homepage. you can also choose the default search engine easily. alternatively, you can set it to replace the new tab page, or set it as your homepage in your browser settings. you can also use a web extension for doing this easily, which you can find below.'
 		},
-		 {
-			title : "Privacy",
-			description : "Homepage does not collect any data from you, and does not use any trackers or analytics. The only data that is stored is your favourite sites, which is stored in your google account, and is only used to sync your favourite sites across devices. Technically, it is as secure as your google account."
-		 }
+		{
+			title: 'Privacy',
+			description:
+				'Homepage does not collect any data from you, and does not use any trackers or analytics. The only data that is stored is your favourite sites, which is stored in your google account, and is only used to sync your favourite sites across devices. Technically, it is as secure as your google account.'
+		}
 	];
 
 	let links = [
-        {
-            name: 'Edge',
-            url: 'https://microsoftedge.microsoft.com/addons/detail/new-tab-changer/dlbnebcbaeajdpekcdhmcgdhoodcjpeg'
-        },
-        {
-            name: 'Chrome',
-            url: 'https://chrome.google.com/webstore/detail/new-tab-changer/occbjkhimchkolibngmcefpjlbknggfh'
-        },
-        {
-            name: 'Firefox',
-            url: 'https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/'
-        },
-    ];
+		{
+			name: 'Edge',
+			url: 'https://microsoftedge.microsoft.com/addons/detail/new-tab-changer/dlbnebcbaeajdpekcdhmcgdhoodcjpeg'
+		},
+		{
+			name: 'Chrome',
+			url: 'https://chrome.google.com/webstore/detail/new-tab-changer/occbjkhimchkolibngmcefpjlbknggfh'
+		},
+		{
+			name: 'Firefox',
+			url: 'https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/'
+		}
+	];
 </script>
 
 {#if $tooltipviews.aboutview}
-	<div  class="tooltip">
+	<div class="tooltip">
 		<h1 class="aboutitem" id="aboutheading">About</h1>
 		{#each aboutItems as { title, description }}
 			<div class="aboutitem">
@@ -74,41 +75,43 @@
 			</div>
 		{/each}
 
-	<div class="button_links">
-		{#each links as { name, url }}
-			<li>
-				<a href={url}>{name}</a>
-			</li>
-		{/each}
+		<div class="button_links">
+			{#each links as { name, url }}
+				<li>
+					<a href={url}>{name}</a>
+				</li>
+			{/each}
+		</div>
+		<div class="aboutitem">
+			<h2>Features</h2>
+			{#each features as feature}
+				<li>{feature}</li>
+			{/each}
+		</div>
+		<div class="aboutitem">
+			<h2>Keyboard shortcuts</h2>
+			<ul>
+				{#each shortcuts as { scut, fn }}
+					<span>
+						<div class="scuts">{scut}</div>
+						<div class="fns">{fn}</div>
+					</span>
+				{/each}
+			</ul>
+		</div>
+		<div class="aboutitem">
+			<h2>Source code</h2>
+			<p>
+				Homepage is open source, and made with Sveltekit. You can find the source code on github.
+			</p>
+			<a class="btn" href="https://github.com/SreejithKSGupta/homepage5" target="_blank">Github</a>
+		</div>
+		<div class="aboutitem">
+			<h2>Contact</h2>
+			<p>If you have any questions, suggestions, or just want to say hi, you can contact me at</p>
+			<a class="btn" href="mailto:sreejithksgupta2255@gmail.com" target="_blank">Send Email</a>
+		</div>
 	</div>
-	<div class="aboutitem">
-		<h2>Features</h2>
-		{#each features as feature}
-			<li>{feature}</li>
-		{/each}
-	</div>
-	<div class="aboutitem">
-		<h2>Keyboard shortcuts</h2>
-		<ul>
-		{#each shortcuts as { scut, fn }}
-			<span>
-				<div class="scuts">{scut}</div>
-				<div class="fns">{fn}</div>
-			</span>
-		{/each}
-	</ul>
-	</div>
-	<div class="aboutitem">
-		<h2>Source code</h2>
-		<p>Homepage is open source, and made with Sveltekit. You can find the source code on github.</p>
-		<a class="btn" href="https://github.com/SreejithKSGupta/homepage5" target="_blank">Github</a>
-	</div>
-	<div class="aboutitem">
-		<h2>Contact</h2>
-		<p>If you have any questions, suggestions, or just want to say hi, you can contact me at</p>
-		<a class="btn" href="mailto:sreejithksgupta2255@gmail.com" target="_blank">Send Email</a>
-	</div>
-</div>
 {/if}
 
 <style>
@@ -184,7 +187,7 @@
 		text-decoration: none;
 		text-align: center;
 	}
-	 a:hover {
+	a:hover {
 		background-color: var(--primary);
 		transform: scale(1.1);
 	}

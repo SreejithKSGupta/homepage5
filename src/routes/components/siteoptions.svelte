@@ -20,39 +20,38 @@
 	<img src={options} alt="options" />
 </button>
 {#if $tooltipviews.actionview}
-	
-		<div id="footer" class="row">
-			<div class="tooltip"  transition:scale={{ duration: $animation_duration }}>
-				<button
-					on:click={() => showHide('editview')}
-					on:keydown={(e) => {
-						if (e.key === 'Enter') showHide('editview');
-					}}
-					id="removesites_btn"
-					title="Remove Sites"
-				>
-					<img src={editicon} alt="edit" />
-				</button>
-				<button
-					on:click={() => showHide('addsiteview')}
-					on:keydown={(e) => {
-						if (e.key === 'Enter') showHide('addsiteview');
-					}}
-					title="Add new Sites"
-				>
-					<img src={addicon} alt="add new" />
-				</button>
-				<button
-					on:click={() => showHide('settingsview')}
-					on:keydown={(e) => {
-						if (e.key === 'Enter') showHide('settingsview');
-					}}
-					title="Remove sites"
-				>
-					<img src={settingsicon} alt="settings" />
-				</button>
-			</div>
+	<div id="footer" class="row">
+		<div class="tooltip" transition:scale={{ duration: $animation_duration }}>
+			<button
+				on:click={() => showHide('editview')}
+				on:keydown={(e) => {
+					if (e.key === 'Enter') showHide('editview');
+				}}
+				id="removesites_btn"
+				title="Remove Sites"
+			>
+				<img src={editicon} alt="edit" />
+			</button>
+			<button
+				on:click={() => showHide('addsiteview')}
+				on:keydown={(e) => {
+					if (e.key === 'Enter') showHide('addsiteview');
+				}}
+				title="Add new Sites"
+			>
+				<img src={addicon} alt="add new" />
+			</button>
+			<button
+				on:click={() => showHide('settingsview')}
+				on:keydown={(e) => {
+					if (e.key === 'Enter') showHide('settingsview');
+				}}
+				title="Remove sites"
+			>
+				<img src={settingsicon} alt="settings" />
+			</button>
 		</div>
+	</div>
 {/if}
 
 <style>

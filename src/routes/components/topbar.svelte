@@ -31,10 +31,15 @@
 		{#if $tooltipviews.profileview}
 			<div id="profilemenu" class="col" transition:slide={{ duration: $animation_duration }}>
 				<h1>Hi,<br /> {$userdata.name}</h1>
-				<button type="button" id="showsettiggg" class="optbtns" on:click={() => showHide('settingsview')}>
+				<button
+					type="button"
+					id="showsettiggg"
+					class="optbtns"
+					on:click={() => showHide('settingsview')}
+				>
 					Settings</button
 				>
-				<button type="button"  class="optbtns" on:click={signinout}>{$userdata.buttonname}</button>
+				<button type="button" class="optbtns" on:click={signinout}>{$userdata.buttonname}</button>
 				<button type="button" class="optbtns" on:click={() => showHide('aboutview')}>About</button>
 			</div>
 		{/if}

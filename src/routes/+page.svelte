@@ -4,11 +4,11 @@
 	import Search from './components/search.svelte';
 	import Sitelist from './components/sitelist.svelte';
 	import Siteoptions from './components/siteoptions.svelte';
-	import { settingsoptions, siteanim} from '../dbase.js';
+	import { settingsoptions, siteanim } from '../dbase.js';
 	import { onNavigate } from '$app/navigation';
 	import Addsitetooltip from './components/addsitetooltip.svelte';
 	import Settings from './components/settings.svelte';
-    import { scale } from 'svelte/transition';
+	import { scale } from 'svelte/transition';
 	onNavigate((navigation) => {
 		if (!(document as any).startViewTransition) return;
 
@@ -46,11 +46,8 @@
 <Settings />
 <About />
 {#if $siteanim}
-<div class="sitebtnfs" transition:scale >
-</div>	
+	<div class="sitebtnfs" transition:scale />
 {/if}
-
-
 
 <style>
 	#showsitesbox {
@@ -64,17 +61,16 @@
 		background-color: var(--primary);
 
 	} */
-	.sitebtnfs{
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(46, 46, 46);
-    z-index: 20;
-    height: 100vh;
-    width: 100vw; 
-    padding: 10vw;
-}
-
+	.sitebtnfs {
+		position: fixed;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		background-color: rgb(46, 46, 46);
+		z-index: 20;
+		height: 100vh;
+		width: 100vw;
+		padding: 10vw;
+	}
 </style>

@@ -2,16 +2,15 @@
 	import './style.css';
 	import { slide } from 'svelte/transition';
 	import { settingsoptions, wallpaperurl } from '../dbase.js';
-    let showwall: boolean ;
-   
+	let showwall: boolean;
 
-   $: {
-          for (let i in $settingsoptions) {
-              if ($settingsoptions[i].name === 'show_wallpaper') {
-                   showwall = $settingsoptions[i].value;      
-              }
-          }
-   }
+	$: {
+		for (let i in $settingsoptions) {
+			if ($settingsoptions[i].name === 'show_wallpaper') {
+				showwall = $settingsoptions[i].value;
+			}
+		}
+	}
 </script>
 
 {#if showwall}
@@ -34,5 +33,4 @@
 		justify-content: space-evenly;
 		align-items: center;
 	}
-
 </style>

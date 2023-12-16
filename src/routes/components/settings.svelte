@@ -1,11 +1,18 @@
 <script lang="ts">
 	import { wallpaperurl } from './../../dbase.js';
-	import { cssvars,fontfam,fontopt,animation_duration ,tooltipviews,settingsoptions} from '../../dbase.js';
+	import {
+		cssvars,
+		fontfam,
+		fontopt,
+		animation_duration,
+		tooltipviews,
+		settingsoptions
+	} from '../../dbase.js';
 	import { scale } from 'svelte/transition';
 	let tooltipElement: any;
 	let wallpaperbox: any;
-	function handlewallpaperupload(){
-		const file =wallpaperbox.files[0];
+	function handlewallpaperupload() {
+		const file = wallpaperbox.files[0];
 		const reader = new FileReader();
 		reader.onloadend = () => {
 			wallpaperurl.set(reader.result as string);
@@ -15,9 +22,12 @@
 	}
 </script>
 
-
 {#if $tooltipviews.settingsview}
-	<div class="tooltip col" transition:scale={{duration:$animation_duration}} bind:this={tooltipElement}>
+	<div
+		class="tooltip col"
+		transition:scale={{ duration: $animation_duration }}
+		bind:this={tooltipElement}
+	>
 		<h1>Settings</h1>
 		<div class="settingsmenu col">
 			<div class="row settingsitem">
@@ -26,11 +36,11 @@
 					type="file"
 					on:change={handlewallpaperupload}
 					id="wallpaper_upload"
-				    accept="image/*"
+					accept="image/*"
 					bind:this={wallpaperbox}
 				/>
 			</div>
-			
+
 			{#each $settingsoptions as settingsoption}
 				<div class="row settingsitem">
 					<label class="settingslabel" for={settingsoption.name}>{settingsoption.text}</label>
@@ -57,8 +67,7 @@
 				/>
 				<span class="setval">{$animation_duration}ms</span>
 			</div>
-		
-            
+
 			{#each $cssvars as settinsitem}
 				<div class="row settingsitem">
 					<label class="settingslabel" for={settinsitem.name}>{settinsitem.tag}</label>
@@ -121,19 +130,21 @@
 		width: 20%;
 		text-align: right;
 	}
-	input[type='color'],input[type='checkbox'] {
+	input[type='color'],
+	input[type='checkbox'] {
 		width: 50px;
 		height: 50px;
 		padding: 0;
 		margin: 0;
 		border-radius: 0px;
 	}
-	input[type='range']{
+	input[type='range'] {
 		width: 50%;
 	}
-	input , select {
-       padding: 10px;
-	   font-size: 70%;
+	input,
+	select {
+		padding: 10px;
+		font-size: 70%;
 	}
 	@media screen and (max-width: 600px) {
 		.tooltip {
@@ -145,15 +156,15 @@
 			justify-content: space-between;
 			width: 98%;
 			margin: var(--margin);
-			padding: var(--padding) calc(var(--padding)*2);
+			padding: var(--padding) calc(var(--padding) * 2);
 			background-color: rgb(29, 24, 29);
 			border-radius: var(--border-radius);
 			font-size: larger;
 		}
-		input[type='color'],input[type='checkbox'] {
-		width: 25px;
-		height: 25px;
-	}
-		
+		input[type='color'],
+		input[type='checkbox'] {
+			width: 25px;
+			height: 25px;
+		}
 	}
 </style>
