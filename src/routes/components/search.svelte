@@ -161,6 +161,9 @@
 		display: none;
 		position: absolute;
 		z-index: 1;
+		border-radius: var(--border-radius);
+		background-color: var(--secondary);
+		padding: 10px;
 	}
 
 	#dropdownimg {
