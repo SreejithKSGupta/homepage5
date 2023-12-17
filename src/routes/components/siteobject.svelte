@@ -24,10 +24,11 @@
 	}
 
 	function geticon(url: string) {
-		const [, , domain] = url.split('/');
-		let imgurl = `https://www.google.com/s2/favicons?sz=256&domain=${domain}`;
-		return imgurl;
-	}
+		var favicon = "https://www.google.com/s2/favicons?sz=256&domain=" + url + "&size=320";
+        return favicon;
+}
+
+
 
 	function setdeficon(e: Event) {
 		if (e.target instanceof HTMLImageElement) {

@@ -32,6 +32,7 @@
 		}
 
 		if (siteUrl.startsWith('www.')) {
+			siteUrl = siteUrl.split('www.')[1];
 			siteUrl = 'https://' + siteUrl;
 		}
 

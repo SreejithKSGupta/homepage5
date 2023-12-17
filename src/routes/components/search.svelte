@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { settingsoptions, siteanim, searchengine } from '../../dbase.js';
+	import searchiconimg from '$lib/res/sch.svg';
 	let searchQuery = '';
 
 	type SearchEngine = 'Google' | 'Bing' | 'Duckduckgo' | 'YouTube' | 'Reddit';
@@ -51,15 +52,18 @@
 	}
 
 	function geticon(url: string) {
-		const [, , domain] = url.split('/');
-		let imgurl = `https://www.google.com/s2/favicons?sz=256&domain=${domain}`;
-		return imgurl;
-	}
+		var favicon = "https://www.google.com/s2/favicons?sz=256&domain=" + url + "&size=320";
+        return favicon;
+}
+
+
+
+
 	function getIconUrl(provider: string) {
 		let p = provider as SearchEngine;
 		return providericons[p];
 	}
-	$: searchicon = geticon(searchProviders[engine]);
+	$:searchicon= geticon(searchProviders[engine]);
 </script>
 
 <div class="search-bar row">

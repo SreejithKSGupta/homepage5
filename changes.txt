@@ -1,13 +1,8 @@
-features required     
-     ----animate when opening a website
-
-corrections:
-     ----better overall theme     
+  
 
 
 extended wish:
      ---provide suggestions     
-     --set a defwebsite image if icon not available
 
 
 crossorigin policy when signing in with popup     
