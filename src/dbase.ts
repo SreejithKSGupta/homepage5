@@ -21,9 +21,10 @@ let csvarslocal =
 let localwallpaper =
 	typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('wallpaper')!) : null;
 let searchenginelocal: SearchEngine =
-	typeof window !== 'undefined'
-		? JSON.parse(window.localStorage.getItem('searchengine')!)
-		: 'Google';
+	typeof window !== 'undefined' ? JSON.parse(window.localStorage.getItem('searchengine')!) :'Google';
+	if (searchenginelocal == null) {
+		searchenginelocal = 'Google';
+	}
 
 if (setopts == null) {
 	setopts = [

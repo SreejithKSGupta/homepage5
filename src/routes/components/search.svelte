@@ -5,6 +5,7 @@
 
 	type SearchEngine = 'Google' | 'Bing' | 'Duckduckgo' | 'YouTube' | 'Reddit';
 	let engine: SearchEngine = 'Google';
+	let searchicon: string ;
 	let searchInput: any;
 	let searchProviders: Record<SearchEngine, string> = {
 		Google: 'https://www.google.com/search?q=',
@@ -16,6 +17,7 @@
 
 	searchengine.subscribe((value) => {
 		engine = value as SearchEngine;
+		searchicon= geticon(searchProviders[engine]);
 	});
 
 	let providericons: Record<SearchEngine, string> = {
@@ -31,7 +33,6 @@
 	const search = () => {
 		siteanim.set(true);
 		let searchUrl = searchProviders[engine] + searchQuery;
-		console.log(searchUrl);
 		let newwin = false;
 		for (let i in $settingsoptions) {
 			if ($settingsoptions[i].name === 'new_tab') {
@@ -46,7 +47,6 @@
 	};
 
 	function setsengine(engine: string) {
-		console.log(engine);
 		let e = engine as SearchEngine;
 		searchengine.set(e);
 	}
@@ -63,7 +63,6 @@
 		let p = provider as SearchEngine;
 		return providericons[p];
 	}
-	$:searchicon= geticon(searchProviders[engine]);
 </script>
 
 <div class="search-bar row">
