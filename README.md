@@ -24,13 +24,12 @@ The homepage is made with easy use and customizability in mind and is fully open
 - ...
 
 ## ScreenShots
-![Homepage](https://github.com/SreejithKSGupta/homepage5/assets/72187226/6ba80d67-7ed6-489c-8dfd-ea197b53bf89)
-![Screenshot 2023-12-17 153535](https://github.com/SreejithKSGupta/homepage5/assets/72187226/544e3bf9-b7d2-4fd2-9604-15d5f19ce32d)
-![Screenshot 2023-12-17 153411](https://github.com/SreejithKSGupta/homepage5/assets/72187226/306d8aec-444f-4bbd-a25e-a8fde356634f)
-![Screenshot 2023-12-17 153335](https://github.com/SreejithKSGupta/homepage5/assets/72187226/69463635-46c8-41e0-9247-c457608afc6d)
-![Screenshot 2023-12-17 153305](https://github.com/SreejithKSGupta/homepage5/assets/72187226/0c391501-886a-4dad-9670-b359dc3ae7b7)
-![Screenshot 2023-12-17 153052](https://github.com/SreejithKSGupta/homepage5/assets/72187226/3cb2dbcc-678a-49ba-8e96-ee20cc8fe37e)
-![Screenshot 2023-12-17 153038](https://github.com/SreejithKSGupta/homepage5/assets/72187226/22e9da8d-0669-425f-af9b-6ff94e4b655d)
+![Homepage Desktop](https://github.com/SreejithKSGupta/homepage5/assets/72187226/22e9da8d-0669-425f-af9b-6ff94e4b655d)
+![On Mobile](https://github.com/SreejithKSGupta/homepage5/assets/72187226/544e3bf9-b7d2-4fd2-9604-15d5f19ce32d)
+![Options](https://github.com/SreejithKSGupta/homepage5/assets/72187226/0c391501-886a-4dad-9670-b359dc3ae7b7)
+![Add a New Website](https://github.com/SreejithKSGupta/homepage5/assets/72187226/6ba80d67-7ed6-489c-8dfd-ea197b53bf89)
+![some of the Settings](https://github.com/SreejithKSGupta/homepage5/assets/72187226/3cb2dbcc-678a-49ba-8e96-ee20cc8fe37e)
+
 
 
 ## Installation
