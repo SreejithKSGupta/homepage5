@@ -40,7 +40,7 @@
 		{
 			title: 'How to use',
 			description:
-				'Just sign in with your google account, and start adding your favorite websites to your homepage. you can also choose the default search engine easily. alternatively, you can set it to replace the new tab page, or set it as your homepage in your browser settings. you can also use a web extension for doing this easily, which you can find below.'
+				'Just sign in with your google account, and start adding your favorite websites to your homepage. You can also choose the default search engine easily.'
 		},
 		{
 			title: 'Privacy',
@@ -75,6 +75,11 @@
 			</div>
 		{/each}
 
+<div class="aboutitem">
+				<h2> How to install</h2>
+				<p>  You can set https://home5559.web.app as your new tab page if your bowser supports it, 
+					or you can also use a web extension for doing this easily, which you can find below.'</p>
+			
 		<div class="button_links">
 			{#each links as { name, url }}
 				<li>
@@ -82,17 +87,19 @@
 				</li>
 			{/each}
 		</div>
+	</div>
+
 		<div class="aboutitem">
 			<h2>Features</h2>
 			{#each features as feature}
-				<li>{feature}</li>
+			<li>&rarr;  {feature}</li>
 			{/each}
 		</div>
 		<div class="aboutitem">
 			<h2>Keyboard shortcuts</h2>
 			<ul>
 				{#each shortcuts as { scut, fn }}
-					<span>
+					<span class='twopartlist'>
 						<div class="scuts">{scut}</div>
 						<div class="fns">{fn}</div>
 					</span>
@@ -103,13 +110,20 @@
 			<h2>Source code</h2>
 			<p>
 				Homepage is open source, and made with Sveltekit. You can find the source code on github.
+				 If you want to contribute, you can fork the repository and make a pull request. I would be happy to merge it.
 			</p>
-			<a class="btn" href="https://github.com/SreejithKSGupta/homepage5" target="_blank">Github</a>
+			<center>
+			<a class="btn centerbtn" href="https://github.com/SreejithKSGupta/homepage5" target="_blank">Github</a>
+		</center>
 		</div>
 		<div class="aboutitem">
 			<h2>Contact</h2>
 			<p>If you have any questions, suggestions, or just want to say hi, you can contact me at</p>
-			<a class="btn" href="mailto:sreejithksgupta2255@gmail.com" target="_blank">Send Email</a>
+			<center>
+			<a class="btn centerbtn" href="mailto:sreejithksgupta2255@gmail.com" target="_blank">Send Email</a>
+			<a class="btn centerbtn" href="https://myportfolio-8fi.pages.dev/" target="_blank">porfolio</a>
+			<a class="btn centerbtn" href="https://linkedin.com/" target="_blank">Linked in</a>
+		    </center>
 		</div>
 	</div>
 {/if}
@@ -168,15 +182,30 @@
 		display: flex;
 		flex-direction: row;
 		padding: var(--padding);
-	}
-	li:nth-child(odd) {
 		background-color: var(--tooltipbgcol);
+		font-size: 120%;
+
+	}
+	li:nth-child(odd), .twopartlist:nth-child(odd) {
+		filter: brightness(90%);
+	}
+	.twopartlist{
+		display: flex;
+		flex-direction: row;
+		padding: 5px;
+		justify-content: space-between;
+		align-items: center;
+		background-color: var(--tooltipbgcol);
+		
 	}
 	.scuts {
-		width: 20%;
+		padding-left: 20px;
+		width: 30%;
+		font-size: 180%;
 	}
 	.fns {
-		width: 70%;
+		width: 60%;
+		font-size: 180%;
 	}
 
 	a {
@@ -207,5 +236,9 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		justify-content: center;
+	}
+	.centerbtn{
+		margin-left: auto;
+		margin-right: auto;
 	}
 </style>
