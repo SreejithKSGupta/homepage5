@@ -65,7 +65,16 @@
 			}}
 			bind:value={siteName}
 		/>
-		<input type="text" placeholder="Site URL" bind:value={siteUrl} />
+		<input
+			type="text"
+			placeholder="Site URL"
+			on:keyup={(event) => {
+				if (event.key === 'Enter') {
+					addSite();
+				}
+			}}
+			bind:value={siteUrl}
+		/>
 		<div class="btns row">
 			<button on:click={cancel}>Cancel</button>
 			<button on:click={addSite} id="addsitebtn">Add</button>

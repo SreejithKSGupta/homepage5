@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { settingsoptions, siteanim, searchengine } from '../../dbase.js';
-	import searchiconimg from '$lib/res/sch.svg';
+	import dropdown from '$lib/res/dropdown.webp';
 	let searchQuery = '';
 
 	type SearchEngine = 'Google' | 'Bing' | 'Duckduckgo' | 'YouTube' | 'Reddit';
@@ -68,7 +68,7 @@
 
 <div class="search-bar row">
 	<input
-		type="search"
+		type="text"
 		placeholder="Search..."
 		on:keyup={(event) => {
 			if (event.key === 'Enter') {
@@ -79,11 +79,12 @@
 		bind:this={searchInput}
 		id="searchbar"
 	/>
+	<div class="searchmenu">
 	<button type="submit" on:click={search} id="searchbtn" title="Go">
 		<img src={searchicon} alt="search" />
 	</button>
 	<div class="dropdown">
-		<button class="dropbtn">v</button>
+		<button class="dropbtn"> <img src={dropdown} id="dropdownimg" alt="change searchengine" title="change"> </button>
 		<div class="dropdown-content">
 			{#each Object.keys(searchProviders) as provider (provider)}
 				<button
@@ -98,12 +99,13 @@
 						alt={provider}
 						title={provider}
 						src={getIconUrl(provider)}
-					/>
+					/><br>
 					{provider}
 				</button>
 			{/each}
 		</div>
 	</div>
+</div>
 </div>
 
 <style>
@@ -111,35 +113,86 @@
 		width: clamp(400px, 60vw, 1000px);
 		background-color: var(--iptcolor);
 		border-radius: var(--border-radius);
+		padding: 0px 10px;
 		margin: var(--margin);
 		font-size: 100%;
-		justify-content: space-between;
+		justify-content: space-evenly;
+		height: 6vh;
 	}
 
-	input[type='search'] {
-		padding-left: 10px;
+	#searchbar {
 		color: var(--ipttextcolor);
 		width: 85%;
 	}
 
-	input:focus {
+	.searchmenu{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-evenly;
+		width: 15%;
+		height: 100%;
+	}
+
+
+
+	#searchbar:focus {
 		transform: none;
 		box-shadow: none;
 		outline: none;
 	}
-	/* label {
-		display: none;
-	} */
-	button {
-		width: 10%;
-	}
-	img {
+
+	 #searchbtn {
+		height: 90%;
 		width: 60%;
+	 }
+	#searchbtn img {
+		height:100%;
+		aspect-ratio: 1/1;
 	}
 
-	/* select {
-		width: 30%;
-	} */
+
+	.dropdown {
+		position: relative;
+		display: inline-block;
+		color: black;
+		width: 40%;
+	}
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		z-index: 1;
+	}
+
+	#dropdownimg {
+		height: 70%;
+		aspect-ratio: 1/1;
+	}
+	.sbtn {
+		display: flex;
+		flex-direction:column;
+		align-items:center;
+		justify-content: center;
+		color: black;
+		padding: 2px 6px;
+		margin: 5px;
+		border-radius: var(--border-radius);
+		text-decoration: none;
+		min-width:100px;
+		display: block;
+		background-color: var(--iptcolor);
+	}
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+
+	.dropdown button img {
+		width: 20px;
+		aspect-ratio: 1/1;
+	}
+
+
+
 	@media (max-width: 600px) {
 		.search-bar {
 			width: 95vw;
@@ -150,46 +203,12 @@
 		.dropdown-content {
 			right: 1px;
 		}
-	}
-	.dropdown {
-		position: relative;
-		width: 40px;
-		display: inline-block;
-		color: black;
-	}
-	.dropdown-content {
-		display: none;
-		position: absolute;
-		min-width: 160px;
-		z-index: 1;
-	}
-	.sbtn {
-		color: black;
-		width: 80px;
-		padding: 2px 6px;
-		margin: 5px;
-		border-radius: var(--border-radius);
-		text-decoration: none;
-		display: block;
-		background-color: var(--iptcolor);
-	}
-	.dropdown:hover .dropdown-content {
-		display: block;
-	}
-	.dropbtn {
-		width: 5%;
-		height: 100%;
-		background-color: var(--iptcolor);
-		border: none;
+		#searchbar {
 		color: var(--ipttextcolor);
-		font-size: 100%;
-		cursor: pointer;
-		border-radius: var(--border-radius);
-	}
-
-	.simg {
-		width: 30px;
-		aspect-ratio: 1/1;
-		margin: 5px;
+		width: 70%;
+	     }
+		.searchmenu{
+			width: 30%;
+		}
 	}
 </style>
