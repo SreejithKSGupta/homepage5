@@ -24,17 +24,34 @@ The homepage is made with easy use and customizability in mind and is fully open
 - ...
 
 ## ScreenShots
-![Homepage Desktop](https://github.com/SreejithKSGupta/homepage5/assets/72187226/22e9da8d-0669-425f-af9b-6ff94e4b655d)
-![On Mobile](https://github.com/SreejithKSGupta/homepage5/assets/72187226/544e3bf9-b7d2-4fd2-9604-15d5f19ce32d)
-![Options](https://github.com/SreejithKSGupta/homepage5/assets/72187226/0c391501-886a-4dad-9670-b359dc3ae7b7)
-![Add a New Website](https://github.com/SreejithKSGupta/homepage5/assets/72187226/6ba80d67-7ed6-489c-8dfd-ea197b53bf89)
-![some of the Settings](https://github.com/SreejithKSGupta/homepage5/assets/72187226/3cb2dbcc-678a-49ba-8e96-ee20cc8fe37e)
+# Your README Title
+
+<p align="center">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/22e9da8d-0669-425f-af9b-6ff94e4b655d" alt="Homepage Desktop" width="400">
+</p>
+
+<p align="center">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/544e3bf9-b7d2-4fd2-9604-15d5f19ce32d" alt="On Mobile" width="300">
+</p>
+
+<p align="center">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/0c391501-886a-4dad-9670-b359dc3ae7b7" alt="Options" width="200">
+</p>
+
+<p align="center">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/6ba80d67-7ed6-489c-8dfd-ea197b53bf89" alt="Add a New Website" width="250">
+</p>
+
+<p align="center">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/3cb2dbcc-678a-49ba-8e96-ee20cc8fe37e" alt="Some of the Settings" width="300">
+</p>
+
 
 
 
 ## Installation
    if you can change your default homepage, like in Mozilla Firefox or Chrome, then you can use this homepage by changing the default URL to `https://home555.vercel.app`.
-   If you are using a browser without the ability, then you can install a new tab extention, like [New Tab Redirect](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna) for chrome, edge and other chromium based browsers, or [New Tab Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/) for firefox and set the URL to `https://home555.vercel.app`.   
+   Suppose you are using a browser without the ability. In that case, you can install a new tab extension, like [New Tab Redirect](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna) for chrome, edge and other chromium based browsers, or [New Tab Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/) for firefox and set the URL to `https://home555.vercel.app`.   
 
 
 ## Usage
