@@ -180,7 +180,7 @@
 		margin: 5px;
 		border-radius: var(--border-radius);
 		text-decoration: none;
-		min-width:100px;
+		min-width:150px;
 		display: block;
 		background-color: var(--iptcolor);
 	}
