@@ -27,23 +27,23 @@ The homepage is made with easy use and customizability in mind and is fully open
 # Your README Title
 
 <p align="center">
-    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/22e9da8d-0669-425f-af9b-6ff94e4b655d" alt="Homepage Desktop" width="400">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/22e9da8d-0669-425f-af9b-6ff94e4b655d" alt="Homepage Desktop" height="400">
 </p>
 
 <p align="center">
-    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/544e3bf9-b7d2-4fd2-9604-15d5f19ce32d" alt="On Mobile" width="300">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/544e3bf9-b7d2-4fd2-9604-15d5f19ce32d" alt="On Mobile" height="400">
 </p>
 
 <p align="center">
-    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/0c391501-886a-4dad-9670-b359dc3ae7b7" alt="Options" width="200">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/0c391501-886a-4dad-9670-b359dc3ae7b7" alt="Options" height="400">
 </p>
 
 <p align="center">
-    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/6ba80d67-7ed6-489c-8dfd-ea197b53bf89" alt="Add a New Website" width="250">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/6ba80d67-7ed6-489c-8dfd-ea197b53bf89" alt="Add a New Website" height="400">
 </p>
 
 <p align="center">
-    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/3cb2dbcc-678a-49ba-8e96-ee20cc8fe37e" alt="Some of the Settings" width="300">
+    <img src="https://github.com/SreejithKSGupta/homepage5/assets/72187226/3cb2dbcc-678a-49ba-8e96-ee20cc8fe37e" alt="Some of the Settings" height="400">
 </p>
 
 
