@@ -1,4 +1,18 @@
 /// <reference types="@sveltejs/kit" />
+
+
+
+self.addEventListener('activate', (event) => {
+    async function deleteOldCaches() {
+        const cacheKeys = await caches.keys();
+        const oldCacheKeys = cacheKeys.filter((key) => key !== CACHE);
+        await Promise.all(oldCacheKeys.map((key) => caches.delete(key)));
+    }
+
+    event.waitUntil(deleteOldCaches());
+});
+
+
 import { build, files, version } from '$service-worker';
 
 // Create a unique cache name for this deployment
@@ -29,4 +43,16 @@ self.addEventListener('activate', (event) => {
 
 	event.waitUntil(deleteOldCaches());
 });
-
+self.addEventListener('fetch', (event) => {
+	event.respondWith(
+		caches.match(event.request)
+			.then((response) => {
+				return response || fetch(event.request);
+			})
+			.catch(() => {
+				if (event.request.destination === 'image') {
+					return caches.match('/defsite.svg');
+				}
+			})
+	);
+});
