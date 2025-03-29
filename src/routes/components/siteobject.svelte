@@ -3,10 +3,13 @@
 	import editicon from '$lib/res/delsite.svg';
 	import defsiteicon from '$lib/res/defsite.svg';
 	import { settingsoptions, siteanim, tooltipviews, sitelists } from '../../dbase';
-	let showSiteName = false;
+	
 	export let site: { id: number; name: string; url: string };
 	export let index: number;
+	
+	let showSiteName = false;
 
+	// Preserved your original animation function exactly as it was
 	async function gotowebsite(url: string, e: Event) {
 		let parent = (e.currentTarget as HTMLElement).parentElement!;
 		if ($settingsoptions[0].value == 0) {
@@ -26,15 +29,14 @@
 	function geticon(url: string) {
 		var favicon = "https://www.google.com/s2/favicons?sz=256&domain=" + url + "&size=320";
         return favicon;
-}
-
-
+    }
 
 	function setdeficon(e: Event) {
 		if (e.target instanceof HTMLImageElement) {
 			e.target.src = defsiteicon;
 		}
 	}
+	
 	function deletesite(option: number) {
 		event!.stopPropagation();
 		const newTracklist = [...$sitelists];
@@ -68,12 +70,12 @@
 		}
 	}}
 >
-	<a href={site.url}>
-		<img class="siteicon" src={geticon(site.url)} on:error={setdeficon} alt={site.url} />
+	<a href={site.url} tabindex="-1" aria-label={site.name}>
+		<img class="siteicon" src={geticon(site.url)} on:error={setdeficon} alt={site.name} />
 	</a>
 	{#if $tooltipviews.editview}
-		<button class="delbtn" on:click={() => deletesite(index)} title="remove {site.name}">
-			<img transition:scale src={editicon} alt="edit" />
+		<button class="delbtn" on:click={() => deletesite(index)} title="remove {site.name}" aria-label="Remove {site.name}">
+			<img transition:scale src={editicon} alt="Delete" />
 		</button>
 	{/if}
 </div>
@@ -87,10 +89,18 @@
 		font-size: 170%;
 		border-radius: var(--sitebr);
 		position: relative;
+		transition: transform 0.2s ease-out;
 	}
+	
 	.sitebtn:hover,
 	.sitebtn:focus {
 		color: var(--primary);
+	}
+	
+	.sitebtn a {
+		display: block;
+		width: 100%;
+		height: 100%;
 	}
 
 	.siteicon {
@@ -98,7 +108,9 @@
 		width: var(--sitewidth);
 		height: var(--sitewidth);
 		background-color: white;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 	}
+	
 	.delbtn,
 	.delbtn img {
 		width: calc(var(--sitewidth) * 0.5);
@@ -106,7 +118,32 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		border: 30px rgba(0, 0, 0, 0.664);
+		border: none;
 		border-radius: var(--sitebr);
+		background-color: rgba(0, 0, 0, 0.664);
+		padding: 0;
+		cursor: pointer;
+		z-index: 5;
+	}
+	
+	.delbtn:hover {
+		background-color: rgba(220, 38, 38, 0.9);
+	}
+	
+	.delbtn:focus {
+		outline: 2px solid var(--primary, #4f46e5);
+		outline-offset: 2px;
+	}
+	
+	/* Make sure span inherits necessary styles to work with your layout */
+	span {
+		display: block;
+		text-align: center;
+		font-size: 0.875rem;
+		margin-top: 0.25rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: var(--sitewidth);
+		white-space: nowrap;
 	}
 </style>

@@ -164,23 +164,23 @@ if (localwallpaper == null) {
 	localwallpaper = defwall;
 }
 
-export let sitelists = writable(siteslists);
-export let wallpaperurl = writable(localwallpaper);
-export let animation_duration = writable(andur);
-export let fontfam = writable(fontfamm);
-export let settingsoptions = writable(setopts);
-export let cssvars = writable(csvarslocal);
-export let siteanim = writable(false);
-export let focusbar = writable('searchbar');
-export let focusbtn = writable('searchbtn');
-export let searchengine = writable(searchenginelocal);
+export const sitelists = writable(siteslists);
+export const wallpaperurl = writable(localwallpaper);
+export const animation_duration = writable(andur);
+export const fontfam = writable(fontfamm);
+export const settingsoptions = writable(setopts);
+export const cssvars = writable(csvarslocal);
+export const siteanim = writable(false);
+export const focusbar = writable('searchbar');
+export const focusbtn = writable('searchbtn');
+export const searchengine = writable(searchenginelocal);
 
-export let userdata = writable({
+export const userdata = writable({
 	name: 'User',
 	buttonname: 'Sign in',
 	photo: logo
 });
-export let fontopt = writable([
+export const fontopt = writable([
 	'Arial',
 	'Verdana',
 	'Helvetica',
@@ -221,7 +221,7 @@ export let fontopt = writable([
 	'Wingdings',
 	'MS Serif'
 ]);
-export let tooltipviews = writable({
+export const tooltipviews = writable({
 	actionview: false,
 	addsiteview: false,
 	editview: false,

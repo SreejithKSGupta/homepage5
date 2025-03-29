@@ -5,6 +5,7 @@
 	import { slide } from 'svelte/transition';
 	let hovering = -1;
 
+	// Preserved your original drag and drop functions
 	function drop(event: DragEvent, target: number) {
 		const start = parseInt(event.dataTransfer!.getData('text/plain'));
 		const newTracklist = [...$sitelists];
@@ -18,8 +19,8 @@
 	}
 </script>
 
-<div class="sitelist" id="sitelist" role="list" transition:slide>
-	{#each $sitelists as site, index (site.name)}
+<div class="sitelist" id="sitelist" role="list" aria-label="Draggable site list" transition:slide>
+	{#each $sitelists as site, index (site.id || site.name)}
 		<div
 			role="listitem"
 			aria-dropeffect="move"
@@ -39,6 +40,12 @@
 			<Siteobject {site} {index} />
 		</div>
 	{/each}
+	
+	{#if $sitelists.length === 0}
+		<div class="empty-message">
+			<p>No sites available.</p>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -49,15 +56,34 @@
 		grid-auto-rows: calc(var(--sitewidth) * 1.8);
 		height: 100%;
 		overflow-y: scroll;
+		padding: 0.5rem;
+		gap: 0.5rem;
 	}
 
 	.site-item:focus,
 	.site-item:hover {
 		transform: scale(1.1);
 	}
+	
 	.site-item:active {
 		transform: scale(0.9);
 	}
+	
+	.site-item.is-active {
+		background-color: rgba(0, 0, 0, 0.05);
+		border-radius: var(--sitebr, 8px);
+	}
+	
+	.empty-message {
+		grid-column: 1 / -1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 150px;
+		color: #666;
+		font-style: italic;
+	}
+	
 	@media screen and (max-width: 600px) {
 		.sitelist {
 			width: 95vw;
