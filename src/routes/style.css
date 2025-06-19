@@ -37,12 +37,15 @@
 	font-size: var(--font-size);
 	transition-duration: var(--animdur);
 	animation-duration: var(--animdur);
-	user-select: none;
 	-webkit-user-select: none;
+	user-select: none;
+
 }
 
 body {
+	-webkit-overflow-scrolling: touch;
 	overscroll-behavior: none;
+
 }
 
 button {

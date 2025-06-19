@@ -1,115 +1,282 @@
-<script>
-    let showNotepad = false;
-    let note = '';
+<script lang="ts">
+  import { onMount } from 'svelte';
+
+  interface Todo {
+    id: number;
+    text: string;
+    completed: boolean;
+  }
+
+  let isOpen = false;
+  let todos: Todo[] = [];
+  let newTodo = '';
+  let nextId = 1;
+
+  onMount(loadAndSetTodos);
+
+  function loadAndSetTodos() {
+    const saved = localStorage?.getItem('todos');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        todos = data.todos || [];
+        nextId = data.nextId || 1;
+      } catch (e) {
+        console.error('Failed to load todos:', e);
+      }
+    }
+  }
+
+  function saveTodos() {
+    localStorage.setItem('todos', JSON.stringify({ todos, nextId }));
+  }
+
+  function togglePlugin() {
+    isOpen = !isOpen;
+  }
+
+  function closePlugin() {
+    isOpen = false;
+  }
+
+  function addTodo() {
+    if (!newTodo.trim()) return;
+    todos = [...todos, { id: nextId++, text: newTodo.trim(), completed: false }];
+    newTodo = '';
+    saveTodos();
+  }
+
+  function toggleTodo(id: number) {
+    todos = todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo);
+    saveTodos();
+  }
+
+  function deleteTodo(id: number) {
+    todos = todos.filter(todo => todo.id !== id);
+    saveTodos();
+  }
+
+  function copyTodo(text: string) {
+    navigator.clipboard.writeText(text).then(() => showToast('Todo copied to clipboard!'))
+      .catch(err => console.error('Failed to copy:', err));
+  }
+
+  function showToast(message: string) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    Object.assign(toast.style, {
+      position: 'fixed', bottom: '20px', right: '20px', backgroundColor: '#2563eb',
+      color: 'white', padding: '10px 20px', borderRadius: '8px', zIndex: '1000',
+      boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)'
+    });
+    document.body.appendChild(toast);
+    setTimeout(() => document.body.removeChild(toast), 2000);
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') addTodo();
+    if (event.key === 'Escape') closePlugin();
+  }
+
+  function handleBackdropClick(event: MouseEvent) {
+    if (event.target === event.currentTarget) closePlugin();
+  }
+
+  $: completedCount = todos.filter(todo => todo.completed).length;
+  $: totalCount = todos.length;
 </script>
 
-<!-- Fixed Button -->
-<button
-    class="notepad-btn"
-    on:click={() => showNotepad = true}
-    aria-label="Open Notepad"
->
-    📝
+<!-- Floating Action Button -->
+<button class="fab" on:click={togglePlugin} aria-label="Toggle Todo Plugin">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M9 11l3 3L22 4"></path>
+    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+  </svg>
 </button>
 
-<!-- Overlay Popup -->
-{#if showNotepad}
-    <div
-        class="overlay"
-        role="button"
-        tabindex="0"
-        aria-label="Close Notepad"
-        on:click={() => showNotepad = false}
-        on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { showNotepad = false; } }}
-    ></div>
-    <div
-        class="notepad-popup"
-        role="dialog"
-        aria-modal="true"
-        tabindex="0"
-        on:click|stopPropagation
-        on:keydown={(e) => { if (e.key === 'Escape') { showNotepad = false; } }}
-    >
-        <header>
-            <span>Notepad</span>
-            <button class="close-btn" on:click={() => showNotepad = false} aria-label="Close">✖</button>
-        </header>
-        <textarea bind:value={note} placeholder="Type your notes here..."></textarea>
+{#if isOpen}
+  <div class="backdrop" on:click={handleBackdropClick} tabindex="0" role="button" aria-label="Close plugin"
+       on:keydown={(e) => ['Escape', 'Enter'].includes(e.key) && closePlugin()}>
+    <div class="plugin-container">
+      <div class="plugin-header">
+        <input class="todo-input" bind:value={newTodo} on:keydown={handleKeydown} placeholder="Add a todo..." />
+        <button class="add-btn" on:click={addTodo}>Add</button>
+        <button class="close-btn" on:click={closePlugin}>×</button>
+      </div>
+
+      <div class="plugin-content">
+        {#if totalCount > 0}
+          <div class="stats">{completedCount} / {totalCount} completed</div>
+        {/if}
+
+        {#if todos.length === 0}
+          <div class="empty-state">No todos yet</div>
+        {:else}
+          <div class="todo-list">
+            {#each todos as todo (todo.id)}
+              <div class="todo-item {todo.completed ? 'completed' : ''}">
+                <label class="todo-label">
+                  <input type="checkbox" checked={todo.completed} on:change={() => toggleTodo(todo.id)} />
+                  <span class="todo-text">{todo.text}</span>
+                </label>
+                <div class="todo-actions">
+                  <button class="action-btn copy-btn" on:click={() => copyTodo(todo.text)} title="Copy">
+                    📋
+                  </button>
+                  <button class="action-btn delete-btn" on:click={() => deleteTodo(todo.id)} title="Delete">
+                    ❌
+                  </button>
+                </div>
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
     </div>
+  </div>
 {/if}
 
 <style>
-.notepad-btn {
+  .fab {
     position: fixed;
-    right: 2rem;
-    bottom: 7vh;
-    z-index: 1001;
-    background: #2d3748;
-    color: #fff;
+    bottom: 12vh;
+    right: 0.5vw;
+    height: 8vh;
+    width: 8vh;
+    background: #2563eb;
+    color: white;
     border: none;
-    border-radius: 2rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    transition: background 0.2s;
-}
-.notepad-btn:hover {
-    background: #4a5568;
-}
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    transition: 0.3s;
+    z-index: 999;
+  }
+  .fab:hover {
+    transform: scale(1.1);
+  }
 
-.overlay {
+  .backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 1000;
-}
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 
-.notepad-popup {
-    position: fixed;
-    right: 2rem;
-    bottom: 12vh;
-    width: 320px;
-    background: #fff;
-    border-radius: 1rem;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-    z-index: 1002;
+  .plugin-container {
+    position: absolute;
+    bottom: 100px;
+    right: 24px;
+    width: clamp(300px, 90%, 600px);
+    background: var(--tooltipbgcol, #fff);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .plugin-header {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .todo-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .add-btn, .close-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .add-btn { background: #2563eb; color: white; }
+  .close-btn { background: #eb2525; color: white; }
+
+  .plugin-content {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .stats {
+    text-align: center;
+    color: #6b7280;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  .todo-list {
     display: flex;
     flex-direction: column;
-    animation: popup-in 0.18s;
-}
+    gap: 8px;
+  }
 
-@keyframes popup-in {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.notepad-popup header {
+  .todo-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem 1rem 0.5rem 1rem;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: 0.2s;
+  }
 
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: #888;
-}
-
-textarea {
+  .todo-label {
     flex: 1;
-    margin: 0 1rem 1rem 1rem;
-    padding: 0.75rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    resize: vertical;
-    min-height: 120px;
-    background: #f9fafb;
-}
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .todo-text {
+    font-size: 14px;
+    color: var(--textcolor, #111);
+  }
+
+  .todo-actions {
+    display: flex;
+    gap: 4px;
+  }
+  .action-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: none;
+    background: var(--primary, #f1f5f9);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: #9ca3af;
+    padding: 40px 20px;
+    font-size: 14px;
+  }
+
+  .plugin-content::-webkit-scrollbar {
+    width: 4px;
+  }
+  .plugin-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 2px;
+  }
 </style>
