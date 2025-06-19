@@ -46,7 +46,7 @@
 <Settings />
 <About />
 {#if $siteanim}
-	<div class="sitebtnfs" transition:scale />
+	<div class="sitebtnfs" transition:scale ></div>
 {/if}
 
 <style>

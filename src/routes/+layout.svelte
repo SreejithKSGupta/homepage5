@@ -5,11 +5,8 @@
 	let showwall: boolean;
 
 	$: {
-		for (let i in $settingsoptions) {
-			if ($settingsoptions[i].name === 'show_wallpaper') {
-				showwall = $settingsoptions[i].value;
-			}
-		}
+		const option = $settingsoptions.find((opt: { name: string; }) => opt.name === 'show_wallpaper');
+		showwall = option ? option.value : false;
 	}
 </script>
 
