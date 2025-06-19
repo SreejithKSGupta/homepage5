@@ -29,11 +29,11 @@
 			}
 		}
 	}
-	function geticon(url: string) {
-		const [, , domain] = url.split('/');
-		let imgurl = `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`;
-		return imgurl;
-	}
+	// function geticon(url: string) {
+	// 	const [, , domain] = url.split('/');
+	// 	let imgurl = `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`;
+	// 	return imgurl;
+	// }
 </script>
 
 <Topbar />
