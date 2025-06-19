@@ -1,14 +1,16 @@
 <script lang="ts">
-	import About from './components/about.svelte';
+	import About from './pages/about.svelte';
 	import Topbar from './components/topbar.svelte';
 	import Search from './components/search.svelte';
 	import Sitelist from './components/sitelist.svelte';
 	import Siteoptions from './components/siteoptions.svelte';
 	import { settingsoptions, siteanim } from '../dbase.js';
 	import { onNavigate } from '$app/navigation';
-	import Addsitetooltip from './components/addsitetooltip.svelte';
-	import Settings from './components/settings.svelte';
+	import Addsitetooltip from './pages/addsitetooltip.svelte';
+	import Settings from './pages/settings.svelte';
 	import { scale } from 'svelte/transition';
+    import Notepad from './pages/notepad.svelte'
+
 	onNavigate((navigation) => {
 		if (!(document as any).startViewTransition) return;
 
@@ -43,6 +45,7 @@
 </div>
 <Siteoptions />
 <Addsitetooltip />
+<Notepad/>
 <Settings />
 <About />
 {#if $siteanim}

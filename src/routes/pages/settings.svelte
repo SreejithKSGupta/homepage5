@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { wallpaperurl } from './../../dbase.js';
+	import { wallpaperurl } from '../../dbase.js';
 	import {
 		cssvars,
 		fontfam,
