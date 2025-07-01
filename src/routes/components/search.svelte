@@ -1,16 +1,13 @@
 <script lang="ts">
 	import { settingsoptions, siteanim, searchengine } from '../../dbase.js';
 	import dropdown from '$lib/res/dropdown.webp';
-	
+
 	type SearchEngine = 'Google' | 'Bing' | 'Duckduckgo' | 'YouTube' | 'Reddit';
-	
-	// Initialize variables
+
 	let searchQuery = '';
 	let searchInput: HTMLInputElement;
-	let engine: SearchEngine;
-	let searchicon: string;
-	
-	// Define search providers with their URLs
+	let dropdownOpen = false;
+
 	const searchProviders: Record<SearchEngine, string> = {
 		Google: 'https://www.google.com/search?q=',
 		Bing: 'https://www.bing.com/search?q=',
@@ -18,8 +15,7 @@
 		YouTube: 'https://www.youtube.com/results?search_query=',
 		Reddit: 'https://www.reddit.com/search/?q='
 	};
-	
-	// Define provider icons (moved to constant)
+
 	const providerIcons: Record<SearchEngine, string> = {
 		Google: 'https://s2.googleusercontent.com/s2/favicons?domain=google.com&sz=128',
 		Bing: 'https://s2.googleusercontent.com/s2/favicons?domain=bing.com&sz=128',
@@ -27,310 +23,314 @@
 		YouTube: 'https://s2.googleusercontent.com/s2/favicons?domain=youtube.com&sz=128',
 		Reddit: 'https://s2.googleusercontent.com/s2/favicons?domain=reddit.com&sz=128'
 	};
-	
-	// Subscribe to searchengine store to get current value
-	searchengine.subscribe((value) => {
-		engine = value as SearchEngine;
-		searchicon = getSearchIcon(engine);
-	});
-	
-	// Update searchengine store when engine changes
-	$: if (engine) {
-		searchengine.set(engine);
-	}
-	
-	/**
-	 * Performs search using the selected search engine
-	 */
+
+	let engine: SearchEngine;
+	$: engine = $searchengine;
+	$: searchIcon = providerIcons[engine];
+
 	function search() {
-		if (!searchQuery.trim()) return; // Prevent empty searches
-		
+		const trimmedQuery = searchQuery.trim();
+		if (!trimmedQuery) return;
 		siteanim.set(true);
-		const searchUrl = searchProviders[engine] + encodeURIComponent(searchQuery);
-		
-		// Check if search should open in new tab
-		let openInNewTab = false;
-		for (let i in $settingsoptions) {
-			if ($settingsoptions[i].name === 'new_tab') {
-				openInNewTab = $settingsoptions[i].value;
-				break;
-			}
-		}
-		
+
+		const searchUrl = searchProviders[engine] + encodeURIComponent(trimmedQuery);
+		const openInNewTab = $settingsoptions.find((opt: { name: string }) => opt.name === 'new_tab')?.value ?? false;
+
 		if (openInNewTab) {
 			window.open(searchUrl, '_blank', 'noopener,noreferrer');
 		} else {
 			window.location.href = searchUrl;
 		}
+		dropdownOpen = false;
 	}
-	
-	/**
-	 * Sets the current search engine
-	 */
-	function setSearchEngine(newEngine: string) {
-		searchengine.set(newEngine as SearchEngine);
-		// Focus the search input after changing engine for better UX
+
+	function setSearchEngine(newEngine: SearchEngine) {
+		searchengine.set(newEngine);
+		dropdownOpen = false;
 		setTimeout(() => searchInput?.focus(), 0);
 	}
-	
-	/**
-	 * Gets search icon for the current engine
-	 */
-	function getSearchIcon(engineName: SearchEngine): string {
-		const baseUrl = searchProviders[engineName] || '';
-		return `https://www.google.com/s2/favicons?sz=256&domain=${baseUrl}&size=320`;
+
+	function toggleDropdown() {
+		dropdownOpen = !dropdownOpen;
+		if (dropdownOpen) {
+			setTimeout(() => {
+				const firstBtn = document.querySelector<HTMLButtonElement>('.dropdown-content button');
+				firstBtn?.focus();
+			}, 0);
+		}
 	}
-	
-	/**
-	 * Gets icon URL for a specific provider
-	 */
-	function getIconUrl(provider: string): string {
-		return providerIcons[provider as SearchEngine];
-	}
-	
-	// Handle keyboard shortcuts
+
 	function handleKeydown(event: KeyboardEvent) {
-		// Focus search bar with / key when not already focused
 		if (event.key === '/' && document.activeElement !== searchInput) {
 			event.preventDefault();
 			searchInput?.focus();
+		} else if (event.key === 'Escape') {
+			if (dropdownOpen) {
+				dropdownOpen = false;
+			} else if (document.activeElement === searchInput) {
+				searchInput.blur();
+			}
 		}
-		
-		// Allow Escape key to blur the search input
-		if (event.key === 'Escape' && document.activeElement === searchInput) {
-			searchInput.blur();
+	}
+
+	function handleClickOutside(event: MouseEvent) {
+		const path = event.composedPath();
+		if (!path.some(el => (el as HTMLElement).classList?.contains('search-container'))) {
+			dropdownOpen = false;
 		}
 	}
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keydown={handleKeydown} on:click={handleClickOutside} />
 
-<div class="search-bar row" role="search">
-	<input
-		type="text"
-		placeholder={`Search with ${engine}...`}
-		on:keydown={(event) => {
-			if (event.key === 'Enter') {
-				search();
-			}
-		}}
-		bind:value={searchQuery}
-		bind:this={searchInput}
-		id="searchbar"
-		aria-label="Search query"
-	/>
-	<div class="search-controls">
-		<button 
-			type="submit" 
-			on:click={search} 
-			id="searchbtn" 
-			title="Search" 
-			aria-label="Search"
-			disabled={!searchQuery.trim()}
+<div class="search-container" role="search">
+	<div class="search-input-wrapper" aria-haspopup="listbox" aria-expanded={dropdownOpen}>
+		<button
+			type="button"
+			class="engine-selector"
+			aria-label="Select search engine"
+			on:click={toggleDropdown}
+			aria-haspopup="true"
+			aria-expanded={dropdownOpen}
+			aria-controls="engine-list"
 		>
-			<img src={searchicon} alt={`Search with ${engine}`} />
+			<img src={searchIcon} alt={engine + ' icon'} class="engine-icon" />
+			<img src={dropdown} alt="Toggle search engine dropdown" class="dropdown-arrow" />
 		</button>
-		<div class="dropdown">
-			<button class="dropbtn" aria-label="Change search engine" title="Change search engine"> 
-				<img src={dropdown} id="dropdownimg" alt="change search engine" /> 
-			</button>
-			<div class="dropdown-content" role="menu">
-				{#each Object.keys(searchProviders) as provider (provider)}
-					<button
-						class="sbtn {engine === provider ? 'active' : ''}"
-						on:click={() => setSearchEngine(provider)}
-						aria-label={`Use ${provider}`}
-						role="menuitem"
-					>
-						<img
-							class="simg"
-							alt={provider}
-							title={provider}
-							src={getIconUrl(provider)}
-						/>
-						<span>{provider}</span>
-					</button>
-				{/each}
-			</div>
-		</div>
+		<input
+			id="searchbar"
+			type="text"
+			placeholder={`Search with ${engine}...`}
+			bind:value={searchQuery}
+			bind:this={searchInput}
+			on:keydown={(e) => e.key === 'Enter' && search()}
+			aria-label="Search query"
+		/>
 	</div>
+	<button
+		type="submit"
+		id="searchbtn"
+		title="Search"
+		aria-label="Search"
+		disabled={!searchQuery.trim()}
+		on:click={search}
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke="currentColor"
+			class="search-icon"
+			aria-hidden="true"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+				d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+		</svg>
+	</button>
+
+	{#if dropdownOpen}
+		<div class="dropdown-content" role="listbox" id="engine-list" tabindex="-1" aria-label="Search engine options">
+			{#each Object.keys(searchProviders) as provider (provider)}
+				<button
+					type="button"
+					role="option"
+					aria-selected={engine === provider}
+					class="sbtn {engine === provider ? 'active' : ''}"
+					on:click={() => setSearchEngine(provider as SearchEngine)}
+				>
+					<img class="simg" alt={provider} title={provider} src={providerIcons[provider as SearchEngine]} />
+					<span>{provider}</span>
+				</button>
+			{/each}
+		</div>
+	{/if}
 </div>
 
 <style>
-	.search-bar {
-		width: clamp(400px, 60vw, 1000px);
-		background-color: var(--iptcolor);
-		border-radius: var(--border-radius);
-		padding: 0 10px;
-		margin: var(--margin);
-		font-size: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		height: 6vh;
-		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-		transition: box-shadow 0.3s ease;
-	}
-	
-	.search-bar:focus-within {
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-	}
 
-	#searchbar {
-		color: var(--ipttextcolor);
-		width: 85%;
-		height: 100%;
-		border: none;
-		background: transparent;
-		font-size: 1rem;
-		padding: 0 0.5rem;
-	}
+.search-container {
+  width: clamp(400px, 60vw, 1000px);
+  display: flex;
+  align-items: center;
+  background-color: var(--iptcolor);
+  border-radius: var(--border-radius);
+  padding: 0.15rem 0.25rem;
+  margin: var(--margin);
+  font-size: 1rem;
+  position: relative;
+}
 
-	.search-controls {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-evenly;
-		width: 15%;
-		height: 100%;
-	}
+.search-input-wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border-radius: var(--border-radius);
+  border: none;
+  transition: none;
+}
 
-	#searchbar:focus {
-		transform: none;
-		box-shadow: none;
-		outline: none;
-	}
+.engine-selector {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
 
-	#searchbtn {
-		height: 80%;
-		width: 60%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		transition: transform 0.2s ease;
-	}
-	
-	#searchbtn:hover {
-		transform: scale(1.1);
-	}
-	
-	#searchbtn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-	
-	#searchbtn img {
-		height: 100%;
-		max-height: 24px;
-		aspect-ratio: 1/1;
-		object-fit: contain;
-	}
+.engine-selector:hover,
+.engine-selector:focus-visible {
+  background-color: rgba(0, 0, 0, 0.05);
+  outline: none;
+  transform: none;
+}
 
-	.dropdown {
-		position: relative;
-		display: inline-block;
-		height: 80%;
-		width: 40%;
-	}
-	
-	.dropbtn {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		transition: transform 0.2s ease;
-	}
-	
-	.dropbtn:hover {
-		transform: scale(1.1);
-	}
-	
-	.dropdown-content {
-		display: none;
-		position: absolute;
-		right: 0;
-		top: 100%;
-		z-index: 10;
-		border-radius: var(--border-radius);
-		background-color: var(--secondary);
-		padding: 10px;
-		box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-		min-width: 180px;
-	}
+.engine-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
 
-	#dropdownimg {
-		width: 50%;
-		max-width: 20px;
-		aspect-ratio: 1/1;
-		object-fit: contain;
-	}
-	
-	.sbtn {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 8px;
-		color: var(--ipttextcolor);
-		padding: 8px 10px;
-		margin: 5px 0;
-		border-radius: var(--border-radius);
-		text-decoration: none;
-		width: 100%;
-		text-align: left;
-		background-color: var(--iptcolor);
-		border: none;
-		cursor: pointer;
-		transition: background-color 0.2s ease;
-	}
-	
-	.sbtn:hover {
-		background-color: rgba(255, 255, 255, 0.1);
-	}
-	
-	.sbtn.active {
-		background-color: rgba(255, 255, 255, 0.15);
-		font-weight: bold;
-	}
-	
-	.dropdown:hover .dropdown-content,
-	.dropdown:focus-within .dropdown-content {
-		display: block;
-	}
+.dropdown-arrow {
+  width: 14px;
+  height: 14px;
+  margin-left: 6px;
+  filter: brightness(0.5);
+  transition: transform 0.3s ease;
+}
 
-	.sbtn img {
-		width: 20px;
-		aspect-ratio: 1/1;
-		object-fit: contain;
-	}
+[aria-expanded="true"] .dropdown-arrow {
+  transform: rotate(180deg);
+  filter: brightness(1);
+}
 
-	@media (max-width: 600px) {
-		.search-bar {
-			width: 95vw;
-			font-size: 100%;
-			padding: calc(var(--padding) * 0.1);
-		}
+input#searchbar {
+  flex-grow: 1;
+  height: 2.8rem;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: var(--ipttextcolor);
+  padding: 0 0.75rem;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  outline: none;
+  box-sizing: border-box;
+}
 
-		.dropdown-content {
-			right: 0;
-		}
-		
-		#searchbar {
-			width: 70%;
-		}
-		
-		.search-controls {
-			width: 30%;
-		}
-		
-		.sbtn {
-			padding: 10px;
-		}
-	}
+input#searchbar::placeholder {
+  color: var(--ipttextcolor);
+  opacity: 0.7;
+}
+
+input#searchbar:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button#searchbtn {
+  margin-left: 0.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--ipttextcolor);
+  background-color: black;
+  height: 2.8rem;
+  width: 2.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+button#searchbtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button#searchbtn:hover:not(:disabled),
+button#searchbtn:focus-visible:not(:disabled) {
+  background-color: #222;
+  outline: none;
+  transform: none;
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 20;
+  background-color: var(--secondary);
+  border-radius: var(--border-radius);
+  margin-top: 4px;
+  width: max-content;
+  min-width: 180px;
+  user-select: none;
+  padding: 4px 0;
+}
+
+.sbtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ipttextcolor);
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+  text-align: left;
+}
+
+.sbtn:hover,
+.sbtn:focus-visible {
+  background-color: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+.sbtn.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+}
+
+.simg {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+@media (max-width: 600px) {
+  .search-container {
+    width: 95vw;
+  }
+
+  input#searchbar {
+    font-size: 0.95rem;
+  }
+
+  button#searchbtn {
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
+  .sbtn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
 </style>
