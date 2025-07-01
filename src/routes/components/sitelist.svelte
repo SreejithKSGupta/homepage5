@@ -69,10 +69,6 @@
 		transform: scale(0.9);
 	}
 	
-	.site-item.is-active {
-		background-color: rgba(0, 0, 0, 0.05);
-		border-radius: var(--sitebr, 8px);
-	}
 	
 	.empty-message {
 		grid-column: 1 / -1;

@@ -1,14 +1,16 @@
 <script lang="ts">
-	import About from './components/about.svelte';
+	import About from './pages/about.svelte';
 	import Topbar from './components/topbar.svelte';
 	import Search from './components/search.svelte';
 	import Sitelist from './components/sitelist.svelte';
 	import Siteoptions from './components/siteoptions.svelte';
 	import { settingsoptions, siteanim } from '../dbase.js';
 	import { onNavigate } from '$app/navigation';
-	import Addsitetooltip from './components/addsitetooltip.svelte';
-	import Settings from './components/settings.svelte';
+	import Addsitetooltip from './pages/addsitetooltip.svelte';
+	import Settings from './pages/settings.svelte';
 	import { scale } from 'svelte/transition';
+    import Notepad from './pages/notepad.svelte'
+
 	onNavigate((navigation) => {
 		if (!(document as any).startViewTransition) return;
 
@@ -27,11 +29,11 @@
 			}
 		}
 	}
-	function geticon(url: string) {
-		const [, , domain] = url.split('/');
-		let imgurl = `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`;
-		return imgurl;
-	}
+	// function geticon(url: string) {
+	// 	const [, , domain] = url.split('/');
+	// 	let imgurl = `https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`;
+	// 	return imgurl;
+	// }
 </script>
 
 <Topbar />
@@ -43,10 +45,11 @@
 </div>
 <Siteoptions />
 <Addsitetooltip />
+<Notepad/>
 <Settings />
 <About />
 {#if $siteanim}
-	<div class="sitebtnfs" transition:scale />
+	<div class="sitebtnfs" transition:scale ></div>
 {/if}
 
 <style>

@@ -3,10 +3,10 @@
 	import editicon from '$lib/res/delsite.svg';
 	import defsiteicon from '$lib/res/defsite.svg';
 	import { settingsoptions, siteanim, tooltipviews, sitelists } from '../../dbase';
-	
+
 	export let site: { id: number; name: string; url: string };
 	export let index: number;
-	
+
 	let showSiteName = false;
 
 	// Preserved your original animation function exactly as it was
@@ -26,17 +26,42 @@
 		$settingsoptions[0].value ? window.open(url, '_blank') : (window.location.href = url);
 	}
 
-	function geticon(url: string) {
-		var favicon = "https://www.google.com/s2/favicons?sz=256&domain=" + url + "&size=320";
-        return favicon;
-    }
+function getFavicon(url: string): string {
+	const defsiteicon = '/assets/default-favicon.png';
 
-	function setdeficon(e: Event) {
-		if (e.target instanceof HTMLImageElement) {
-			e.target.src = defsiteicon;
-		}
+	try {
+		// Normalize and validate the input
+		if (!url) return defsiteicon;
+		url = url.trim();
+		if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+		const parsed = new URL(url);
+		const domain = parsed.hostname;
+		const origin = parsed.origin;
+
+		// Attempt favicon sources in order of preference
+		const sources = [
+			`https://s2.googleusercontent.com/s2/favicons?domain=${domain}&sz=128`, // Google
+			`https://icons.duckduckgo.com/ip3/${domain}.ico`,                      // DuckDuckGo
+			`${origin}/favicon.ico`,                                              // Direct
+		];
+
+		// Return the first one — browsers will try to load it, so no need to check validity here
+		return sources[1]; // You can implement dynamic fallback below if needed
+
+	} catch (err) {
+		console.warn('Favicon error for URL:', url, err);
+		return defsiteicon;
 	}
-	
+}
+
+
+	// function setdeficon(e: Event) {
+	// 	if (e.target instanceof HTMLImageElement) {
+	// 		e.target.src = defsiteicon;
+	// 	}
+	// }
+
 	function deletesite(option: number) {
 		event!.stopPropagation();
 		const newTracklist = [...$sitelists];
@@ -71,10 +96,15 @@
 	}}
 >
 	<a href={site.url} tabindex="-1" aria-label={site.name}>
-		<img class="siteicon" src={geticon(site.url)} on:error={setdeficon} alt={site.name} />
+		<img class="siteicon" src={getFavicon(site.url)} alt={site.name} />
 	</a>
 	{#if $tooltipviews.editview}
-		<button class="delbtn" on:click={() => deletesite(index)} title="remove {site.name}" aria-label="Remove {site.name}">
+		<button
+			class="delbtn"
+			on:click={() => deletesite(index)}
+			title="remove {site.name}"
+			aria-label="Remove {site.name}"
+		>
 			<img transition:scale src={editicon} alt="Delete" />
 		</button>
 	{/if}
@@ -91,12 +121,12 @@
 		position: relative;
 		transition: transform 0.2s ease-out;
 	}
-	
+
 	.sitebtn:hover,
 	.sitebtn:focus {
 		color: var(--primary);
 	}
-	
+
 	.sitebtn a {
 		display: block;
 		width: 100%;
@@ -110,7 +140,7 @@
 		background-color: white;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 	}
-	
+
 	.delbtn,
 	.delbtn img {
 		width: calc(var(--sitewidth) * 0.5);
@@ -125,16 +155,16 @@
 		cursor: pointer;
 		z-index: 5;
 	}
-	
+
 	.delbtn:hover {
 		background-color: rgba(220, 38, 38, 0.9);
 	}
-	
+
 	.delbtn:focus {
 		outline: 2px solid var(--primary, #4f46e5);
 		outline-offset: 2px;
 	}
-	
+
 	/* Make sure span inherits necessary styles to work with your layout */
 	span {
 		display: block;
